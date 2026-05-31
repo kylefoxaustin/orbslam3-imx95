@@ -1,0 +1,1071 @@
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/CMakeLists.txt b/CMakeLists.txt
+--- orbslam3-pristine/CMakeLists.txt	2026-05-30 20:00:35.560163819 -0500
++++ b/CMakeLists.txt	2026-05-30 19:50:35.503110940 -0500
+@@ -9,8 +9,8 @@
+ 
+ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall   -O3")
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall   -O3")
+-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -march=native")
+-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
++set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -mcpu=cortex-a55")
++set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mcpu=cortex-a55")
+ 
+ # Check C++11 or C++0x support
+ include(CheckCXXCompilerFlag)
+@@ -39,7 +39,7 @@
+ MESSAGE(${OpenCV_VERSION})
+ 
+ find_package(Eigen3 3.1.0 REQUIRED)
+-find_package(Pangolin REQUIRED)
++# [headless] Pangolin removed for GPU-less QEMU target
+ find_package(realsense2)
+ 
+ include_directories(
+@@ -48,13 +48,14 @@
+ ${PROJECT_SOURCE_DIR}/include/CameraModels
+ ${PROJECT_SOURCE_DIR}/Thirdparty/Sophus
+ ${EIGEN3_INCLUDE_DIR}
+-${Pangolin_INCLUDE_DIRS}
++
+ )
+ 
+ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+ 
+ add_library(${PROJECT_NAME} SHARED
+ src/System.cc
++src/Viewer.cc
+ src/Tracking.cc
+ src/LocalMapping.cc
+ src/LoopClosing.cc
+@@ -71,7 +72,6 @@
+ src/Frame.cc
+ src/KeyFrameDatabase.cc
+ src/Sim3Solver.cc
+-src/Viewer.cc
+ src/ImuTypes.cc
+ src/G2oTypes.cc
+ src/CameraModels/Pinhole.cpp
+@@ -99,7 +99,6 @@
+ include/Frame.h
+ include/KeyFrameDatabase.h
+ include/Sim3Solver.h
+-include/Viewer.h
+ include/ImuTypes.h
+ include/G2oTypes.h
+ include/CameraModels/GeometricCamera.h
+@@ -118,7 +117,7 @@
+ target_link_libraries(${PROJECT_NAME}
+ ${OpenCV_LIBS}
+ ${EIGEN3_LIBS}
+-${Pangolin_LIBRARIES}
++
+ ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
+ ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
+ -lboost_serialization
+@@ -201,6 +200,11 @@
+         Examples/Monocular/mono_euroc.cc)
+ target_link_libraries(mono_euroc ${PROJECT_NAME})
+ 
++# [orbslam-imx95] flat-out variant (real-time throttle removed) for max-throughput characterization
++add_executable(mono_euroc_flatout
++        Examples/Monocular/mono_euroc_flatout.cc)
++target_link_libraries(mono_euroc_flatout ${PROJECT_NAME})
++
+ add_executable(mono_tum_vi
+         Examples/Monocular/mono_tum_vi.cc)
+ target_link_libraries(mono_tum_vi ${PROJECT_NAME})
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/Examples/Monocular/mono_euroc.cc b/Examples/Monocular/mono_euroc.cc
+--- orbslam3-pristine/Examples/Monocular/mono_euroc.cc	2026-05-30 20:00:36.454178889 -0500
++++ b/Examples/Monocular/mono_euroc.cc	2026-05-30 18:33:55.580586798 -0500
+@@ -183,6 +183,25 @@
+         }
+ 
+     }
++    // [orbslam-imx95] tracking-time statistics for workload characterization
++    {
++        std::vector<float> v = vTimesTrack;
++        std::sort(v.begin(), v.end());
++        double tot = 0; for(float t : v) tot += t;
++        size_t n = v.size();
++        if(n > 0){
++            std::cerr << "=== ORB-SLAM3 TRACK STATS (n=" << n << " frames) ===\n";
++            std::cerr << "track_mean_ms="   << (tot/n)*1000.0 << "\n";
++            std::cerr << "track_median_ms=" << v[n/2]*1000.0 << "\n";
++            std::cerr << "track_min_ms="    << v.front()*1000.0 << "\n";
++            std::cerr << "track_max_ms="    << v.back()*1000.0 << "\n";
++            std::cerr << "track_p95_ms="    << v[(size_t)(n*0.95)]*1000.0 << "\n";
++            std::cerr << "track_total_s="   << tot << "\n";
++            std::cerr << "implied_max_fps_median=" << 1.0/v[n/2] << "\n";
++            std::cerr << "implied_max_fps_mean="   << (double)n/tot << "\n";
++        }
++    }
++
+     // Stop all threads
+     SLAM.Shutdown();
+ 
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/Examples/Monocular/mono_euroc_flatout.cc b/Examples/Monocular/mono_euroc_flatout.cc
+--- orbslam3-pristine/Examples/Monocular/mono_euroc_flatout.cc	1969-12-31 18:00:00.000000000 -0600
++++ b/Examples/Monocular/mono_euroc_flatout.cc	2026-05-30 18:33:55.580586798 -0500
+@@ -0,0 +1,245 @@
++/**
++* This file is part of ORB-SLAM3
++*
++* Copyright (C) 2017-2021 Carlos Campos, Richard Elvira, Juan J. Gómez Rodríguez, José M.M. Montiel and Juan D. Tardós, University of Zaragoza.
++* Copyright (C) 2014-2016 Raúl Mur-Artal, José M.M. Montiel and Juan D. Tardós, University of Zaragoza.
++*
++* ORB-SLAM3 is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
++* License as published by the Free Software Foundation, either version 3 of the License, or
++* (at your option) any later version.
++*
++* ORB-SLAM3 is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
++* the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++* GNU General Public License for more details.
++*
++* You should have received a copy of the GNU General Public License along with ORB-SLAM3.
++* If not, see <http://www.gnu.org/licenses/>.
++*/
++
++#include<iostream>
++#include<algorithm>
++#include<fstream>
++#include<chrono>
++
++#include<opencv2/core/core.hpp>
++
++#include<System.h>
++
++using namespace std;
++
++void LoadImages(const string &strImagePath, const string &strPathTimes,
++                vector<string> &vstrImages, vector<double> &vTimeStamps);
++
++int main(int argc, char **argv)
++{  
++    if(argc < 5)
++    {
++        cerr << endl << "Usage: ./mono_euroc path_to_vocabulary path_to_settings path_to_sequence_folder_1 path_to_times_file_1 (path_to_image_folder_2 path_to_times_file_2 ... path_to_image_folder_N path_to_times_file_N) (trajectory_file_name)" << endl;
++        return 1;
++    }
++
++    const int num_seq = (argc-3)/2;
++    cout << "num_seq = " << num_seq << endl;
++    bool bFileName= (((argc-3) % 2) == 1);
++    string file_name;
++    if (bFileName)
++    {
++        file_name = string(argv[argc-1]);
++        cout << "file name: " << file_name << endl;
++    }
++
++    // Load all sequences:
++    int seq;
++    vector< vector<string> > vstrImageFilenames;
++    vector< vector<double> > vTimestampsCam;
++    vector<int> nImages;
++
++    vstrImageFilenames.resize(num_seq);
++    vTimestampsCam.resize(num_seq);
++    nImages.resize(num_seq);
++
++    int tot_images = 0;
++    for (seq = 0; seq<num_seq; seq++)
++    {
++        cout << "Loading images for sequence " << seq << "...";
++        LoadImages(string(argv[(2*seq)+3]) + "/mav0/cam0/data", string(argv[(2*seq)+4]), vstrImageFilenames[seq], vTimestampsCam[seq]);
++        cout << "LOADED!" << endl;
++
++        nImages[seq] = vstrImageFilenames[seq].size();
++        tot_images += nImages[seq];
++    }
++
++    // Vector for tracking time statistics
++    vector<float> vTimesTrack;
++    vTimesTrack.resize(tot_images);
++
++    cout << endl << "-------" << endl;
++    cout.precision(17);
++
++
++    int fps = 20;
++    float dT = 1.f/fps;
++    // Create SLAM system. It initializes all system threads and gets ready to process frames.
++    ORB_SLAM3::System SLAM(argv[1],argv[2],ORB_SLAM3::System::MONOCULAR, false);
++    float imageScale = SLAM.GetImageScale();
++
++    double t_resize = 0.f;
++    double t_track = 0.f;
++
++    for (seq = 0; seq<num_seq; seq++)
++    {
++
++        // Main loop
++        cv::Mat im;
++        int proccIm = 0;
++        for(int ni=0; ni<nImages[seq]; ni++, proccIm++)
++        {
++
++            // Read image from file
++            im = cv::imread(vstrImageFilenames[seq][ni],cv::IMREAD_UNCHANGED); //,CV_LOAD_IMAGE_UNCHANGED);
++            double tframe = vTimestampsCam[seq][ni];
++
++            if(im.empty())
++            {
++                cerr << endl << "Failed to load image at: "
++                     <<  vstrImageFilenames[seq][ni] << endl;
++                return 1;
++            }
++
++            if(imageScale != 1.f)
++            {
++#ifdef REGISTER_TIMES
++    #ifdef COMPILEDWITHC11
++                std::chrono::steady_clock::time_point t_Start_Resize = std::chrono::steady_clock::now();
++    #else
++                std::chrono::monotonic_clock::time_point t_Start_Resize = std::chrono::monotonic_clock::now();
++    #endif
++#endif
++                int width = im.cols * imageScale;
++                int height = im.rows * imageScale;
++                cv::resize(im, im, cv::Size(width, height));
++#ifdef REGISTER_TIMES
++    #ifdef COMPILEDWITHC11
++                std::chrono::steady_clock::time_point t_End_Resize = std::chrono::steady_clock::now();
++    #else
++                std::chrono::monotonic_clock::time_point t_End_Resize = std::chrono::monotonic_clock::now();
++    #endif
++                t_resize = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(t_End_Resize - t_Start_Resize).count();
++                SLAM.InsertResizeTime(t_resize);
++#endif
++            }
++
++    #ifdef COMPILEDWITHC11
++            std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
++    #else
++            std::chrono::monotonic_clock::time_point t1 = std::chrono::monotonic_clock::now();
++    #endif
++
++            // Pass the image to the SLAM system
++            // cout << "tframe = " << tframe << endl;
++            SLAM.TrackMonocular(im,tframe); // TODO change to monocular_inertial
++
++    #ifdef COMPILEDWITHC11
++            std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
++    #else
++            std::chrono::monotonic_clock::time_point t2 = std::chrono::monotonic_clock::now();
++    #endif
++
++#ifdef REGISTER_TIMES
++            t_track = t_resize + std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(t2 - t1).count();
++            SLAM.InsertTrackTime(t_track);
++#endif
++
++            double ttrack= std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
++
++            vTimesTrack[ni]=ttrack;
++
++            // Wait to load the next frame
++            double T=0;
++            if(ni<nImages[seq]-1)
++                T = vTimestampsCam[seq][ni+1]-tframe;
++            else if(ni>0)
++                T = tframe-vTimestampsCam[seq][ni-1];
++
++            //std::cout << "T: " << T << std::endl;
++            //std::cout << "ttrack: " << ttrack << std::endl;
++
++            // [orbslam-imx95 flat-out variant] throttle removed: run as fast as CPU allows
++            (void)T;
++        }
++
++        if(seq < num_seq - 1)
++        {
++            string kf_file_submap =  "./SubMaps/kf_SubMap_" + std::to_string(seq) + ".txt";
++            string f_file_submap =  "./SubMaps/f_SubMap_" + std::to_string(seq) + ".txt";
++            SLAM.SaveTrajectoryEuRoC(f_file_submap);
++            SLAM.SaveKeyFrameTrajectoryEuRoC(kf_file_submap);
++
++            cout << "Changing the dataset" << endl;
++
++            SLAM.ChangeDataset();
++        }
++
++    }
++    // [orbslam-imx95] tracking-time statistics for workload characterization
++    {
++        std::vector<float> v = vTimesTrack;
++        std::sort(v.begin(), v.end());
++        double tot = 0; for(float t : v) tot += t;
++        size_t n = v.size();
++        if(n > 0){
++            std::cerr << "=== ORB-SLAM3 TRACK STATS (n=" << n << " frames) ===\n";
++            std::cerr << "track_mean_ms="   << (tot/n)*1000.0 << "\n";
++            std::cerr << "track_median_ms=" << v[n/2]*1000.0 << "\n";
++            std::cerr << "track_min_ms="    << v.front()*1000.0 << "\n";
++            std::cerr << "track_max_ms="    << v.back()*1000.0 << "\n";
++            std::cerr << "track_p95_ms="    << v[(size_t)(n*0.95)]*1000.0 << "\n";
++            std::cerr << "track_total_s="   << tot << "\n";
++            std::cerr << "implied_max_fps_median=" << 1.0/v[n/2] << "\n";
++            std::cerr << "implied_max_fps_mean="   << (double)n/tot << "\n";
++        }
++    }
++
++    // Stop all threads
++    SLAM.Shutdown();
++
++    // Save camera trajectory
++    if (bFileName)
++    {
++        const string kf_file =  "kf_" + string(argv[argc-1]) + ".txt";
++        const string f_file =  "f_" + string(argv[argc-1]) + ".txt";
++        SLAM.SaveTrajectoryEuRoC(f_file);
++        SLAM.SaveKeyFrameTrajectoryEuRoC(kf_file);
++    }
++    else
++    {
++        SLAM.SaveTrajectoryEuRoC("CameraTrajectory.txt");
++        SLAM.SaveKeyFrameTrajectoryEuRoC("KeyFrameTrajectory.txt");
++    }
++
++    return 0;
++}
++
++void LoadImages(const string &strImagePath, const string &strPathTimes,
++                vector<string> &vstrImages, vector<double> &vTimeStamps)
++{
++    ifstream fTimes;
++    fTimes.open(strPathTimes.c_str());
++    vTimeStamps.reserve(5000);
++    vstrImages.reserve(5000);
++    while(!fTimes.eof())
++    {
++        string s;
++        getline(fTimes,s);
++        if(!s.empty())
++        {
++            stringstream ss;
++            ss << s;
++            vstrImages.push_back(strImagePath + "/" + ss.str() + ".png");
++            double t;
++            ss >> t;
++            vTimeStamps.push_back(t*1e-9);
++
++        }
++    }
++}
+Binary files orbslam3-pristine/Examples/Monocular/mono_kitti and b/Examples/Monocular/mono_kitti differ
+Binary files orbslam3-pristine/Examples/Monocular/mono_tum and b/Examples/Monocular/mono_tum differ
+Binary files orbslam3-pristine/Examples/Monocular/mono_tum_vi and b/Examples/Monocular/mono_tum_vi differ
+Binary files orbslam3-pristine/Examples/Monocular-Inertial/mono_inertial_euroc and b/Examples/Monocular-Inertial/mono_inertial_euroc differ
+Binary files orbslam3-pristine/Examples/Monocular-Inertial/mono_inertial_tum_vi and b/Examples/Monocular-Inertial/mono_inertial_tum_vi differ
+Binary files orbslam3-pristine/Examples/RGB-D/rgbd_tum and b/Examples/RGB-D/rgbd_tum differ
+Binary files orbslam3-pristine/Examples/Stereo/stereo_euroc and b/Examples/Stereo/stereo_euroc differ
+Binary files orbslam3-pristine/Examples/Stereo/stereo_kitti and b/Examples/Stereo/stereo_kitti differ
+Binary files orbslam3-pristine/Examples/Stereo/stereo_tum_vi and b/Examples/Stereo/stereo_tum_vi differ
+Binary files orbslam3-pristine/Examples/Stereo-Inertial/stereo_inertial_euroc and b/Examples/Stereo-Inertial/stereo_inertial_euroc differ
+Binary files orbslam3-pristine/Examples/Stereo-Inertial/stereo_inertial_tum_vi and b/Examples/Stereo-Inertial/stereo_inertial_tum_vi differ
+Binary files orbslam3-pristine/Examples_old/Monocular/mono_euroc_old and b/Examples_old/Monocular/mono_euroc_old differ
+Binary files orbslam3-pristine/Examples_old/Monocular/mono_kitti_old and b/Examples_old/Monocular/mono_kitti_old differ
+Binary files orbslam3-pristine/Examples_old/Monocular/mono_tum_old and b/Examples_old/Monocular/mono_tum_old differ
+Binary files orbslam3-pristine/Examples_old/Monocular/mono_tum_vi_old and b/Examples_old/Monocular/mono_tum_vi_old differ
+Binary files orbslam3-pristine/Examples_old/Monocular-Inertial/mono_inertial_euroc_old and b/Examples_old/Monocular-Inertial/mono_inertial_euroc_old differ
+Binary files orbslam3-pristine/Examples_old/Monocular-Inertial/mono_inertial_tum_vi_old and b/Examples_old/Monocular-Inertial/mono_inertial_tum_vi_old differ
+Binary files orbslam3-pristine/Examples_old/RGB-D/rgbd_tum_old and b/Examples_old/RGB-D/rgbd_tum_old differ
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/Examples_old/ROS/ORB_SLAM3/CMakeLists.txt b/Examples_old/ROS/ORB_SLAM3/CMakeLists.txt
+--- orbslam3-pristine/Examples_old/ROS/ORB_SLAM3/CMakeLists.txt	2026-05-30 20:00:38.094206534 -0500
++++ b/Examples_old/ROS/ORB_SLAM3/CMakeLists.txt	2026-05-30 19:10:09.796039333 -0500
+@@ -9,8 +9,8 @@
+ 
+ MESSAGE("Build type: " ${ROS_BUILD_TYPE})
+ 
+-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall  -O3 -march=native ")
+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall  -O3 -march=native")
++set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall  -O3 -mcpu=cortex-a55 ")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall  -O3 -mcpu=cortex-a55")
+ 
+ # Check C++11 or C++0x support
+ include(CheckCXXCompilerFlag)
+Binary files orbslam3-pristine/Examples_old/Stereo/stereo_euroc_old and b/Examples_old/Stereo/stereo_euroc_old differ
+Binary files orbslam3-pristine/Examples_old/Stereo/stereo_kitti_old and b/Examples_old/Stereo/stereo_kitti_old differ
+Binary files orbslam3-pristine/Examples_old/Stereo/stereo_tum_vi_old and b/Examples_old/Stereo/stereo_tum_vi_old differ
+Binary files orbslam3-pristine/Examples_old/Stereo-Inertial/stereo_inertial_euroc_old and b/Examples_old/Stereo-Inertial/stereo_inertial_euroc_old differ
+Binary files orbslam3-pristine/Examples_old/Stereo-Inertial/stereo_inertial_tum_vi_old and b/Examples_old/Stereo-Inertial/stereo_inertial_tum_vi_old differ
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/include/MapDrawer.h b/include/MapDrawer.h
+--- orbslam3-pristine/include/MapDrawer.h	2026-05-30 20:00:39.038222447 -0500
++++ b/include/MapDrawer.h	2026-05-30 19:17:52.619326917 -0500
+@@ -24,7 +24,6 @@
+ #include"MapPoint.h"
+ #include"KeyFrame.h"
+ #include "Settings.h"
+-#include<pangolin/pangolin.h>
+ 
+ #include<mutex>
+ 
+@@ -45,10 +44,8 @@
+ 
+     void DrawMapPoints();
+     void DrawKeyFrames(const bool bDrawKF, const bool bDrawGraph, const bool bDrawInertialGraph, const bool bDrawOptLba);
+-    void DrawCurrentCamera(pangolin::OpenGlMatrix &Twc);
+     void SetCurrentCameraPose(const Sophus::SE3f &Tcw);
+     void SetReferenceKeyFrame(KeyFrame *pKF);
+-    void GetCurrentOpenGLCameraMatrix(pangolin::OpenGlMatrix &M, pangolin::OpenGlMatrix &MOw);
+ 
+ private:
+ 
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/include/Map.h b/include/Map.h
+--- orbslam3-pristine/include/Map.h	2026-05-30 20:00:39.038222447 -0500
++++ b/include/Map.h	2026-05-30 19:45:38.462218668 -0500
+@@ -24,12 +24,15 @@
+ #include "KeyFrame.h"
+ 
+ #include <set>
+-#include <pangolin/pangolin.h>
+ #include <mutex>
+ 
+ #include <boost/serialization/base_object.hpp>
+ 
+ 
++// [headless] GLubyte is GL's 8-bit type; thumbnail (mThumbnail) is viewer-only and never
++// allocated when running viewer-less, so a plain stub typedef suffices for the GPU-less QEMU build.
++typedef unsigned char GLubyte;
++
+ namespace ORB_SLAM3
+ {
+ 
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/include/System.h b/include/System.h
+--- orbslam3-pristine/include/System.h	2026-05-30 20:00:39.038222447 -0500
++++ b/include/System.h	2026-05-30 19:17:52.619326917 -0500
+@@ -36,7 +36,6 @@
+ #include "LoopClosing.h"
+ #include "KeyFrameDatabase.h"
+ #include "ORBVocabulary.h"
+-#include "Viewer.h"
+ #include "ImuTypes.h"
+ #include "Settings.h"
+ 
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/src/MapDrawer.cc b/src/MapDrawer.cc
+--- orbslam3-pristine/src/MapDrawer.cc	2026-05-30 20:00:39.039222464 -0500
++++ b/src/MapDrawer.cc	2026-05-30 19:47:54.331445711 -0500
+@@ -19,7 +19,6 @@
+ #include "MapDrawer.h"
+ #include "MapPoint.h"
+ #include "KeyFrame.h"
+-#include <pangolin/pangolin.h>
+ #include <mutex>
+ 
+ namespace ORB_SLAM3
+@@ -132,6 +131,7 @@
+     return !b_miss_params;
+ }
+ 
++#if 0 // [headless] GL drawing methods are viewer-only; excluded for GPU-less QEMU build
+ void MapDrawer::DrawMapPoints()
+ {
+     Map* pActiveMap = mpAtlas->GetCurrentMap();
+@@ -395,48 +395,10 @@
+     }
+ }
+ 
+-void MapDrawer::DrawCurrentCamera(pangolin::OpenGlMatrix &Twc)
+-{
+-    const float &w = mCameraSize;
+-    const float h = w*0.75;
+-    const float z = w*0.6;
+-
+-    glPushMatrix();
+ 
+-#ifdef HAVE_GLES
+-        glMultMatrixf(Twc.m);
+-#else
+-        glMultMatrixd(Twc.m);
+-#endif
+-
+-    glLineWidth(mCameraLineWidth);
+-    glColor3f(0.0f,1.0f,0.0f);
+-    glBegin(GL_LINES);
+-    glVertex3f(0,0,0);
+-    glVertex3f(w,h,z);
+-    glVertex3f(0,0,0);
+-    glVertex3f(w,-h,z);
+-    glVertex3f(0,0,0);
+-    glVertex3f(-w,-h,z);
+-    glVertex3f(0,0,0);
+-    glVertex3f(-w,h,z);
+-
+-    glVertex3f(w,h,z);
+-    glVertex3f(w,-h,z);
+ 
+-    glVertex3f(-w,h,z);
+-    glVertex3f(-w,-h,z);
+-
+-    glVertex3f(-w,h,z);
+-    glVertex3f(w,h,z);
+-
+-    glVertex3f(-w,-h,z);
+-    glVertex3f(w,-h,z);
+-    glEnd();
+-
+-    glPopMatrix();
+-}
+ 
++#endif // [headless]
+ 
+ void MapDrawer::SetCurrentCameraPose(const Sophus::SE3f &Tcw)
+ {
+@@ -444,24 +406,5 @@
+     mCameraPose = Tcw.inverse();
+ }
+ 
+-void MapDrawer::GetCurrentOpenGLCameraMatrix(pangolin::OpenGlMatrix &M, pangolin::OpenGlMatrix &MOw)
+-{
+-    Eigen::Matrix4f Twc;
+-    {
+-        unique_lock<mutex> lock(mMutexCamera);
+-        Twc = mCameraPose.matrix();
+-    }
+ 
+-    for (int i = 0; i<4; i++) {
+-        M.m[4*i] = Twc(0,i);
+-        M.m[4*i+1] = Twc(1,i);
+-        M.m[4*i+2] = Twc(2,i);
+-        M.m[4*i+3] = Twc(3,i);
+-    }
+-
+-    MOw.SetIdentity();
+-    MOw.m[12] = Twc(0,3);
+-    MOw.m[13] = Twc(1,3);
+-    MOw.m[14] = Twc(2,3);
+-}
+ } //namespace ORB_SLAM
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/src/System.cc b/src/System.cc
+--- orbslam3-pristine/src/System.cc	2026-05-30 20:00:39.040222481 -0500
++++ b/src/System.cc	2026-05-30 19:17:52.619326917 -0500
+@@ -21,7 +21,6 @@
+ #include "System.h"
+ #include "Converter.h"
+ #include <thread>
+-#include <pangolin/pangolin.h>
+ #include <iomanip>
+ #include <openssl/md5.h>
+ #include <boost/serialization/base_object.hpp>
+@@ -226,6 +225,7 @@
+     //usleep(10*1000*1000);
+ 
+     //Initialize the Viewer thread and launch
++#if 0 // [headless] viewer removed for GPU-less QEMU target
+     if(bUseViewer)
+     //if(false) // TODO
+     {
+@@ -235,6 +235,7 @@
+         mpLoopCloser->mpViewer = mpViewer;
+         mpViewer->both = mpFrameDrawer->both;
+     }
++#endif
+ 
+     // Fix verbosity
+     Verbose::SetTh(Verbose::VERBOSITY_QUIET);
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/src/Viewer.cc b/src/Viewer.cc
+--- orbslam3-pristine/src/Viewer.cc	2026-05-30 20:00:39.040222481 -0500
++++ b/src/Viewer.cc	2026-05-30 19:50:35.493110774 -0500
+@@ -1,452 +1,26 @@
+-/**
+-* This file is part of ORB-SLAM3
+-*
+-* Copyright (C) 2017-2021 Carlos Campos, Richard Elvira, Juan J. Gómez Rodríguez, José M.M. Montiel and Juan D. Tardós, University of Zaragoza.
+-* Copyright (C) 2014-2016 Raúl Mur-Artal, José M.M. Montiel and Juan D. Tardós, University of Zaragoza.
+-*
+-* ORB-SLAM3 is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+-* License as published by the Free Software Foundation, either version 3 of the License, or
+-* (at your option) any later version.
+-*
+-* ORB-SLAM3 is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+-* the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-* GNU General Public License for more details.
+-*
+-* You should have received a copy of the GNU General Public License along with ORB-SLAM3.
+-* If not, see <http://www.gnu.org/licenses/>.
+-*/
+-
+-
++// [orbslam-imx95 headless] No-op Viewer stub for the GPU-less QEMU/imx95 target.
++// The real Viewer is a Pangolin/OpenGL GUI which cannot render under TCG (no /dev/dri).
++// mono_euroc constructs the System with bUseViewer=false, so the viewer thread is never
++// started and these methods are never meaningfully invoked; they exist only so the few
++// Tracking.cc reset/relocalization references resolve at link time. All no-ops.
+ #include "Viewer.h"
+-#include <pangolin/pangolin.h>
+-
+-#include <mutex>
+-
+ namespace ORB_SLAM3
+ {
+-
+-Viewer::Viewer(System* pSystem, FrameDrawer *pFrameDrawer, MapDrawer *pMapDrawer, Tracking *pTracking, const string &strSettingPath, Settings* settings):
+-    both(false), mpSystem(pSystem), mpFrameDrawer(pFrameDrawer),mpMapDrawer(pMapDrawer), mpTracker(pTracking),
+-    mbFinishRequested(false), mbFinished(true), mbStopped(true), mbStopRequested(false)
+-{
+-    if(settings){
+-        newParameterLoader(settings);
+-    }
+-    else{
+-
+-        cv::FileStorage fSettings(strSettingPath, cv::FileStorage::READ);
+-
+-        bool is_correct = ParseViewerParamFile(fSettings);
+-
+-        if(!is_correct)
+-        {
+-            std::cerr << "**ERROR in the config file, the format is not correct**" << std::endl;
+-            try
+-            {
+-                throw -1;
+-            }
+-            catch(exception &e)
+-            {
+-
+-            }
+-        }
+-    }
+-
+-    mbStopTrack = false;
+-}
+-
+-void Viewer::newParameterLoader(Settings *settings) {
+-    mImageViewerScale = 1.f;
+-
+-    float fps = settings->fps();
+-    if(fps<1)
+-        fps=30;
+-    mT = 1e3/fps;
+-
+-    cv::Size imSize = settings->newImSize();
+-    mImageHeight = imSize.height;
+-    mImageWidth = imSize.width;
+-
+-    mImageViewerScale = settings->imageViewerScale();
+-    mViewpointX = settings->viewPointX();
+-    mViewpointY = settings->viewPointY();
+-    mViewpointZ = settings->viewPointZ();
+-    mViewpointF = settings->viewPointF();
+-}
+-
+-bool Viewer::ParseViewerParamFile(cv::FileStorage &fSettings)
+-{
+-    bool b_miss_params = false;
+-    mImageViewerScale = 1.f;
+-
+-    float fps = fSettings["Camera.fps"];
+-    if(fps<1)
+-        fps=30;
+-    mT = 1e3/fps;
+-
+-    cv::FileNode node = fSettings["Camera.width"];
+-    if(!node.empty())
+-    {
+-        mImageWidth = node.real();
+-    }
+-    else
+-    {
+-        std::cerr << "*Camera.width parameter doesn't exist or is not a real number*" << std::endl;
+-        b_miss_params = true;
+-    }
+-
+-    node = fSettings["Camera.height"];
+-    if(!node.empty())
+-    {
+-        mImageHeight = node.real();
+-    }
+-    else
+-    {
+-        std::cerr << "*Camera.height parameter doesn't exist or is not a real number*" << std::endl;
+-        b_miss_params = true;
+-    }
+-
+-    node = fSettings["Viewer.imageViewScale"];
+-    if(!node.empty())
+-    {
+-        mImageViewerScale = node.real();
+-    }
+-
+-    node = fSettings["Viewer.ViewpointX"];
+-    if(!node.empty())
+-    {
+-        mViewpointX = node.real();
+-    }
+-    else
+-    {
+-        std::cerr << "*Viewer.ViewpointX parameter doesn't exist or is not a real number*" << std::endl;
+-        b_miss_params = true;
+-    }
+-
+-    node = fSettings["Viewer.ViewpointY"];
+-    if(!node.empty())
+-    {
+-        mViewpointY = node.real();
+-    }
+-    else
+-    {
+-        std::cerr << "*Viewer.ViewpointY parameter doesn't exist or is not a real number*" << std::endl;
+-        b_miss_params = true;
+-    }
+-
+-    node = fSettings["Viewer.ViewpointZ"];
+-    if(!node.empty())
+-    {
+-        mViewpointZ = node.real();
+-    }
+-    else
+-    {
+-        std::cerr << "*Viewer.ViewpointZ parameter doesn't exist or is not a real number*" << std::endl;
+-        b_miss_params = true;
+-    }
+-
+-    node = fSettings["Viewer.ViewpointF"];
+-    if(!node.empty())
+-    {
+-        mViewpointF = node.real();
+-    }
+-    else
+-    {
+-        std::cerr << "*Viewer.ViewpointF parameter doesn't exist or is not a real number*" << std::endl;
+-        b_miss_params = true;
+-    }
+-
+-    return !b_miss_params;
+-}
+-
+-void Viewer::Run()
+-{
+-    mbFinished = false;
+-    mbStopped = false;
+-
+-    pangolin::CreateWindowAndBind("ORB-SLAM3: Map Viewer",1024,768);
+-
+-    // 3D Mouse handler requires depth testing to be enabled
+-    glEnable(GL_DEPTH_TEST);
+-
+-    // Issue specific OpenGl we might need
+-    glEnable (GL_BLEND);
+-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+-
+-    pangolin::CreatePanel("menu").SetBounds(0.0,1.0,0.0,pangolin::Attach::Pix(175));
+-    pangolin::Var<bool> menuFollowCamera("menu.Follow Camera",false,true);
+-    pangolin::Var<bool> menuCamView("menu.Camera View",false,false);
+-    pangolin::Var<bool> menuTopView("menu.Top View",false,false);
+-    // pangolin::Var<bool> menuSideView("menu.Side View",false,false);
+-    pangolin::Var<bool> menuShowPoints("menu.Show Points",true,true);
+-    pangolin::Var<bool> menuShowKeyFrames("menu.Show KeyFrames",true,true);
+-    pangolin::Var<bool> menuShowGraph("menu.Show Graph",false,true);
+-    pangolin::Var<bool> menuShowInertialGraph("menu.Show Inertial Graph",true,true);
+-    pangolin::Var<bool> menuLocalizationMode("menu.Localization Mode",false,true);
+-    pangolin::Var<bool> menuReset("menu.Reset",false,false);
+-    pangolin::Var<bool> menuStop("menu.Stop",false,false);
+-    pangolin::Var<bool> menuStepByStep("menu.Step By Step",false,true);  // false, true
+-    pangolin::Var<bool> menuStep("menu.Step",false,false);
+-
+-    pangolin::Var<bool> menuShowOptLba("menu.Show LBA opt", false, true);
+-    // Define Camera Render Object (for view / scene browsing)
+-    pangolin::OpenGlRenderState s_cam(
+-                pangolin::ProjectionMatrix(1024,768,mViewpointF,mViewpointF,512,389,0.1,1000),
+-                pangolin::ModelViewLookAt(mViewpointX,mViewpointY,mViewpointZ, 0,0,0,0.0,-1.0, 0.0)
+-                );
+-
+-    // Add named OpenGL viewport to window and provide 3D Handler
+-    pangolin::View& d_cam = pangolin::CreateDisplay()
+-            .SetBounds(0.0, 1.0, pangolin::Attach::Pix(175), 1.0, -1024.0f/768.0f)
+-            .SetHandler(new pangolin::Handler3D(s_cam));
+-
+-    pangolin::OpenGlMatrix Twc, Twr;
+-    Twc.SetIdentity();
+-    pangolin::OpenGlMatrix Ow; // Oriented with g in the z axis
+-    Ow.SetIdentity();
+-    cv::namedWindow("ORB-SLAM3: Current Frame");
+-
+-    bool bFollow = true;
+-    bool bLocalizationMode = false;
+-    bool bStepByStep = false;
+-    bool bCameraView = true;
+-
+-    if(mpTracker->mSensor == mpSystem->MONOCULAR || mpTracker->mSensor == mpSystem->STEREO || mpTracker->mSensor == mpSystem->RGBD)
+-    {
+-        menuShowGraph = true;
+-    }
+-
+-    float trackedImageScale = mpTracker->GetImageScale();
+-
+-    cout << "Starting the Viewer" << endl;
+-    while(1)
+-    {
+-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+-
+-        mpMapDrawer->GetCurrentOpenGLCameraMatrix(Twc,Ow);
+-
+-        if(mbStopTrack)
+-        {
+-            menuStepByStep = true;
+-            mbStopTrack = false;
+-        }
+-
+-        if(menuFollowCamera && bFollow)
+-        {
+-            if(bCameraView)
+-                s_cam.Follow(Twc);
+-            else
+-                s_cam.Follow(Ow);
+-        }
+-        else if(menuFollowCamera && !bFollow)
+-        {
+-            if(bCameraView)
+-            {
+-                s_cam.SetProjectionMatrix(pangolin::ProjectionMatrix(1024,768,mViewpointF,mViewpointF,512,389,0.1,1000));
+-                s_cam.SetModelViewMatrix(pangolin::ModelViewLookAt(mViewpointX,mViewpointY,mViewpointZ, 0,0,0,0.0,-1.0, 0.0));
+-                s_cam.Follow(Twc);
+-            }
+-            else
+-            {
+-                s_cam.SetProjectionMatrix(pangolin::ProjectionMatrix(1024,768,3000,3000,512,389,0.1,1000));
+-                s_cam.SetModelViewMatrix(pangolin::ModelViewLookAt(0,0.01,10, 0,0,0,0.0,0.0, 1.0));
+-                s_cam.Follow(Ow);
+-            }
+-            bFollow = true;
+-        }
+-        else if(!menuFollowCamera && bFollow)
+-        {
+-            bFollow = false;
+-        }
+-
+-        if(menuCamView)
+-        {
+-            menuCamView = false;
+-            bCameraView = true;
+-            s_cam.SetProjectionMatrix(pangolin::ProjectionMatrix(1024,768,mViewpointF,mViewpointF,512,389,0.1,10000));
+-            s_cam.SetModelViewMatrix(pangolin::ModelViewLookAt(mViewpointX,mViewpointY,mViewpointZ, 0,0,0,0.0,-1.0, 0.0));
+-            s_cam.Follow(Twc);
+-        }
+-
+-        if(menuTopView && mpMapDrawer->mpAtlas->isImuInitialized())
+-        {
+-            menuTopView = false;
+-            bCameraView = false;
+-            s_cam.SetProjectionMatrix(pangolin::ProjectionMatrix(1024,768,3000,3000,512,389,0.1,10000));
+-            s_cam.SetModelViewMatrix(pangolin::ModelViewLookAt(0,0.01,50, 0,0,0,0.0,0.0, 1.0));
+-            s_cam.Follow(Ow);
+-        }
+-
+-        if(menuLocalizationMode && !bLocalizationMode)
+-        {
+-            mpSystem->ActivateLocalizationMode();
+-            bLocalizationMode = true;
+-        }
+-        else if(!menuLocalizationMode && bLocalizationMode)
+-        {
+-            mpSystem->DeactivateLocalizationMode();
+-            bLocalizationMode = false;
+-        }
+-
+-        if(menuStepByStep && !bStepByStep)
+-        {
+-            //cout << "Viewer: step by step" << endl;
+-            mpTracker->SetStepByStep(true);
+-            bStepByStep = true;
+-        }
+-        else if(!menuStepByStep && bStepByStep)
+-        {
+-            mpTracker->SetStepByStep(false);
+-            bStepByStep = false;
+-        }
+-
+-        if(menuStep)
+-        {
+-            mpTracker->mbStep = true;
+-            menuStep = false;
+-        }
+-
+-
+-        d_cam.Activate(s_cam);
+-        glClearColor(1.0f,1.0f,1.0f,1.0f);
+-        mpMapDrawer->DrawCurrentCamera(Twc);
+-        if(menuShowKeyFrames || menuShowGraph || menuShowInertialGraph || menuShowOptLba)
+-            mpMapDrawer->DrawKeyFrames(menuShowKeyFrames,menuShowGraph, menuShowInertialGraph, menuShowOptLba);
+-        if(menuShowPoints)
+-            mpMapDrawer->DrawMapPoints();
+-
+-        pangolin::FinishFrame();
+-
+-        cv::Mat toShow;
+-        cv::Mat im = mpFrameDrawer->DrawFrame(trackedImageScale);
+-
+-        if(both){
+-            cv::Mat imRight = mpFrameDrawer->DrawRightFrame(trackedImageScale);
+-            cv::hconcat(im,imRight,toShow);
+-        }
+-        else{
+-            toShow = im;
+-        }
+-
+-        if(mImageViewerScale != 1.f)
+-        {
+-            int width = toShow.cols * mImageViewerScale;
+-            int height = toShow.rows * mImageViewerScale;
+-            cv::resize(toShow, toShow, cv::Size(width, height));
+-        }
+-
+-        cv::imshow("ORB-SLAM3: Current Frame",toShow);
+-        cv::waitKey(mT);
+-
+-        if(menuReset)
+-        {
+-            menuShowGraph = true;
+-            menuShowInertialGraph = true;
+-            menuShowKeyFrames = true;
+-            menuShowPoints = true;
+-            menuLocalizationMode = false;
+-            if(bLocalizationMode)
+-                mpSystem->DeactivateLocalizationMode();
+-            bLocalizationMode = false;
+-            bFollow = true;
+-            menuFollowCamera = true;
+-            mpSystem->ResetActiveMap();
+-            menuReset = false;
+-        }
+-
+-        if(menuStop)
+-        {
+-            if(bLocalizationMode)
+-                mpSystem->DeactivateLocalizationMode();
+-
+-            // Stop all threads
+-            mpSystem->Shutdown();
+-
+-            // Save camera trajectory
+-            mpSystem->SaveTrajectoryEuRoC("CameraTrajectory.txt");
+-            mpSystem->SaveKeyFrameTrajectoryEuRoC("KeyFrameTrajectory.txt");
+-            menuStop = false;
+-        }
+-
+-        if(Stop())
+-        {
+-            while(isStopped())
+-            {
+-                usleep(3000);
+-            }
+-        }
+-
+-        if(CheckFinish())
+-            break;
+-    }
+-
+-    SetFinish();
+-}
+-
+-void Viewer::RequestFinish()
+-{
+-    unique_lock<mutex> lock(mMutexFinish);
+-    mbFinishRequested = true;
+-}
+-
+-bool Viewer::CheckFinish()
+-{
+-    unique_lock<mutex> lock(mMutexFinish);
+-    return mbFinishRequested;
+-}
+-
+-void Viewer::SetFinish()
+-{
+-    unique_lock<mutex> lock(mMutexFinish);
+-    mbFinished = true;
+-}
+-
+-bool Viewer::isFinished()
+-{
+-    unique_lock<mutex> lock(mMutexFinish);
+-    return mbFinished;
+-}
+-
+-void Viewer::RequestStop()
+-{
+-    unique_lock<mutex> lock(mMutexStop);
+-    if(!mbStopped)
+-        mbStopRequested = true;
+-}
+-
+-bool Viewer::isStopped()
+-{
+-    unique_lock<mutex> lock(mMutexStop);
+-    return mbStopped;
+-}
+-
+-bool Viewer::Stop()
+-{
+-    unique_lock<mutex> lock(mMutexStop);
+-    unique_lock<mutex> lock2(mMutexFinish);
+-
+-    if(mbFinishRequested)
+-        return false;
+-    else if(mbStopRequested)
+-    {
+-        mbStopped = true;
+-        mbStopRequested = false;
+-        return true;
+-    }
+-
+-    return false;
+-
+-}
+-
+-void Viewer::Release()
+-{
+-    unique_lock<mutex> lock(mMutexStop);
+-    mbStopped = false;
+-}
+-
+-/*void Viewer::SetTrackingPause()
+-{
+-    mbStopTrack = true;
+-}*/
+-
++Viewer::Viewer(System* pSystem, FrameDrawer* pFrameDrawer, MapDrawer* pMapDrawer,
++               Tracking *pTracking, const string &strSettingPath, Settings* settings)
++    : both(false), mpSystem(pSystem), mpFrameDrawer(pFrameDrawer), mpMapDrawer(pMapDrawer),
++      mpTracker(pTracking), mbFinishRequested(false), mbFinished(true),
++      mbStopped(true), mbStopRequested(false), mbStopTrack(false) {}
++void Viewer::newParameterLoader(Settings* settings) {}
++void Viewer::Run() {}
++void Viewer::RequestFinish() { mbFinishRequested = true; }
++void Viewer::RequestStop()   { mbStopRequested = true; }
++bool Viewer::isFinished()    { return true; }
++bool Viewer::isStopped()     { return true; }
++bool Viewer::isStepByStep()  { return false; }
++void Viewer::Release()       {}
++bool Viewer::Stop()          { return false; }
++bool Viewer::CheckFinish()   { return mbFinishRequested; }
++void Viewer::SetFinish()     { mbFinished = true; }
++bool Viewer::ParseViewerParamFile(cv::FileStorage &fSettings) { return true; }
+ }
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/Thirdparty/DBoW2/CMakeLists.txt b/Thirdparty/DBoW2/CMakeLists.txt
+--- orbslam3-pristine/Thirdparty/DBoW2/CMakeLists.txt	2026-05-30 20:00:38.905220205 -0500
++++ b/Thirdparty/DBoW2/CMakeLists.txt	2026-05-30 19:10:09.779039025 -0500
+@@ -5,8 +5,8 @@
+   set(CMAKE_BUILD_TYPE Release)
+ endif()
+ 
+-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall  -O3 -march=native ")
+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall  -O3 -march=native")
++set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall  -O3 -mcpu=cortex-a55 ")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall  -O3 -mcpu=cortex-a55")
+ 
+ set(HDRS_DBOW2
+   DBoW2/BowVector.h
+diff -ruN '--exclude=build' '--exclude=lib' '--exclude=*.so' '--exclude=*.o' '--exclude=Vocabulary' '--exclude=mono_euroc' '--exclude=mono_euroc_flatout' '--exclude=config.h' '--exclude=.git' orbslam3-pristine/Thirdparty/g2o/CMakeLists.txt b/Thirdparty/g2o/CMakeLists.txt
+--- orbslam3-pristine/Thirdparty/g2o/CMakeLists.txt	2026-05-30 20:00:38.907220239 -0500
++++ b/Thirdparty/g2o/CMakeLists.txt	2026-05-30 19:10:09.783039097 -0500
+@@ -54,8 +54,8 @@
+ ENDIF(OPENMP_FOUND AND G2O_USE_OPENMP)
+ 
+ # Compiler specific options for gcc
+-SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native")
+-SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -march=native")
++SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -mcpu=cortex-a55")
++SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -mcpu=cortex-a55")
+ # SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+ # SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
+ 

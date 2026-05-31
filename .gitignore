@@ -1,0 +1,17 @@
+# large / reproducible — never commit
+datasets/
+orbslam3/
+*.zip
+*.bag
+*.cpio.gz
+*.so
+*.o
+
+# qemu_work: track ONLY the scripts, ignore all generated trees/artifacts
+qemu_work/*
+!qemu_work/boot.sh
+!qemu_work/aarch64-toolchain.cmake
+!qemu_work/build_orbslam_initramfs.sh
+
+# run-work scratch dirs
+results/*.work/

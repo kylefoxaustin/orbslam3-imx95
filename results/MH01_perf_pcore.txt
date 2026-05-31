@@ -1,0 +1,33 @@
+# started on Sat May 30 18:52:22 2026
+
+
+ Performance counter stats for '/home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/mono_euroc_flatout /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Vocabulary/ORBvoc.txt /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/EuRoC.yaml /home/kyle/Documents/GitHub/orbslam3-imx95/datasets/MH_01 /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/EuRoC_TimeStamps/MH01.txt':
+
+         91,297.26 msec task-clock                       #    2.955 CPUs utilized             
+     <not counted>      cpu_atom/cycles/                                                        (0.00%)
+   478,390,085,269      cpu_core/cycles/                 #    5.240 GHz                         (80.02%)
+     <not counted>      cpu_atom/instructions/                                                  (0.00%)
+   732,544,102,331      cpu_core/instructions/           #    1.53  insn per cycle              (90.02%)
+     <not counted>      cpu_atom/branches/                                                      (0.00%)
+    99,549,327,888      cpu_core/branches/               #    1.090 G/sec                       (89.98%)
+     <not counted>      cpu_atom/branch-misses/                                                 (0.00%)
+     2,166,123,713      cpu_core/branch-misses/          #    2.18% of all branches             (90.03%)
+     <not counted>      cpu_atom/cache-references/                                              (0.00%)
+     6,462,423,128      cpu_core/cache-references/       #   70.784 M/sec                       (89.97%)
+     <not counted>      cpu_atom/cache-misses/                                                  (0.00%)
+     1,630,508,797      cpu_core/cache-misses/           #   25.23% of all cache refs           (89.99%)
+     <not counted>      cpu_atom/L1-dcache-loads/                                               (0.00%)
+   211,842,870,723      cpu_core/L1-dcache-loads/        #    2.320 G/sec                       (90.01%)
+   <not supported>      cpu_atom/L1-dcache-load-misses/                                       
+     3,730,488,110      cpu_core/L1-dcache-load-misses/  #    1.76% of all L1-dcache accesses   (90.05%)
+     <not counted>      cpu_atom/LLC-loads/                                                     (0.00%)
+       790,452,016      cpu_core/LLC-loads/              #    8.658 M/sec                       (89.93%)
+     <not counted>      cpu_atom/LLC-load-misses/                                               (0.00%)
+       188,335,212      cpu_core/LLC-load-misses/        #   23.83% of all LL-cache accesses    (90.02%)
+
+      30.896942388 seconds time elapsed
+
+      82.503657000 seconds user
+       9.077311000 seconds sys
+
+

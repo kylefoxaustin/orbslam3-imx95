@@ -1,0 +1,1422 @@
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x412fd050]
+[    0.000000] Linux version 6.12.49-gdf24f9428e38 (kyle@skippy) (aarch64-linux-gnu-gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #1 SMP PREEMPT Tue May 19 12:44:30 CDT 2026
+[    0.000000] KASLR disabled due to lack of seed
+[    0.000000] Machine model: NXP i.MX95 19X19 board
+[    0.000000] earlycon: lpuart32 at MMIO32 0x0000000044380010 (options '')
+[    0.000000] printk: legacy bootconsole [lpuart32] enabled
+[    0.000000] efi: UEFI not found.
+[    0.000000] Reserved memory: created CMA memory pool at 0x00000000c3000000, size 960 MiB
+[    0.000000] OF: reserved mem: initialized node linux,cma, compatible id shared-dma-pool
+[    0.000000] OF: reserved mem: 0x00000000c3000000..0x00000000feffffff (983040 KiB) map reusable linux,cma
+[    0.000000] OF: reserved mem: 0x00000000a0000000..0x00000000a00fffff (1024 KiB) nomap non-reusable vpu_boot@a0000000
+[    0.000000] OF: reserved mem: 0x00000000a0100000..0x00000000a10fffff (16384 KiB) nomap non-reusable mali_protected
+[    0.000000] OF: reserved mem: 0x0000000088000000..0x0000000088007fff (32 KiB) nomap non-reusable vdev0vring0@88000000
+[    0.000000] OF: reserved mem: 0x0000000088008000..0x000000008800ffff (32 KiB) nomap non-reusable vdev0vring1@88008000
+[    0.000000] OF: reserved mem: 0x0000000088010000..0x0000000088017fff (32 KiB) nomap non-reusable vdev1vring0@88010000
+[    0.000000] OF: reserved mem: 0x0000000088018000..0x000000008801ffff (32 KiB) nomap non-reusable vdev1vring1@88018000
+[    0.000000] OF: reserved mem: 0x0000000088220000..0x0000000088220fff (4 KiB) nomap non-reusable rsc-table@88220000
+[    0.000000] Reserved memory: created DMA memory pool at 0x0000000088020000, size 1 MiB
+[    0.000000] OF: reserved mem: initialized node vdevbuffer@88020000, compatible id shared-dma-pool
+[    0.000000] OF: reserved mem: 0x0000000088020000..0x000000008811ffff (1024 KiB) nomap non-reusable vdevbuffer@88020000
+[    0.000000] NUMA: Faking a node at [mem 0x0000000080000000-0x000000027fffffff]
+[    0.000000] NODE_DATA(0) allocated [mem 0x27ef91fc0-0x27ef949ff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000080000000-0x00000000ffffffff]
+[    0.000000]   DMA32    empty
+[    0.000000]   Normal   [mem 0x0000000100000000-0x000000027fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000080000000-0x0000000087ffffff]
+[    0.000000]   node   0: [mem 0x0000000088000000-0x000000008811ffff]
+[    0.000000]   node   0: [mem 0x0000000088120000-0x000000008821ffff]
+[    0.000000]   node   0: [mem 0x0000000088220000-0x0000000088220fff]
+[    0.000000]   node   0: [mem 0x0000000088221000-0x000000009fffffff]
+[    0.000000]   node   0: [mem 0x00000000a0000000-0x00000000a10fffff]
+[    0.000000]   node   0: [mem 0x00000000a1100000-0x000000027fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000080000000-0x000000027fffffff]
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: Trusted OS migration not required
+[    0.000000] psci: SMC Calling Convention v1.0
+[    0.000000] percpu: Embedded 23 pages/cpu s54296 r8192 d31720 u94208
+[    0.000000] Detected VIPT I-cache on CPU0
+[    0.000000] CPU features: detected: GIC system register CPU interface
+[    0.000000] CPU features: detected: Virtualization Host Extensions
+[    0.000000] CPU features: detected: ARM errata 1165522, 1319367, or 1530923
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Kernel command line: earlycon=lpuart32,mmio32,0x44380010 console=ttyLP0,115200 cpuidle.off=1 rdinit=/init
+[    0.000000] Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+[    0.000000] Fallback order for Node 0: 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 2097152
+[    0.000000] Policy zone: Normal
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] software IO TLB: area num 8.
+[    0.000000] software IO TLB: mapped [mem 0x00000000bf000000-0x00000000c3000000] (64MB)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=6, Nodes=1
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=512 to nr_cpu_ids=6.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=6
+[    0.000000] RCU Tasks: Setting shift to 3 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=6.
+[    0.000000] RCU Tasks Trace: Setting shift to 3 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=6.
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] GIC: enabling workaround for GICv3: non-coherent attribute
+[    0.000000] GICv3: GIC: Using split EOI/Deactivate mode
+[    0.000000] GICv3: 320 SPIs implemented
+[    0.000000] GICv3: 0 Extended SPIs implemented
+[    0.000000] Root IRQ handler: gic_handle_irq
+[    0.000000] GICv3: GICv3 features: 16 PPIs
+[    0.000000] GICv3: GICD_CTRL.DS=1, SCR_EL3.FIQ=0
+[    0.000000] GICv3: CPU0: found redistributor 0 region 0:0x0000000048060000
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 24.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+[    0.000054] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+[    0.011600] Console: colour dummy device 80x25
+[    0.014606] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=96000)
+[    0.014824] pid_max: default: 32768 minimum: 301
+[    0.016060] LSM: initializing lsm=capability
+[    0.019261] Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.019499] Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.059497] rcu: Hierarchical SRCU implementation.
+[    0.059649] rcu: 	Max phase no-delay instances is 1000.
+[    0.061057] Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+[    0.063905] EFI services will not be available.
+[    0.065305] smp: Bringing up secondary CPUs ...
+[    0.068865] Detected VIPT I-cache on CPU1
+[    0.069851] GICv3: CPU1: found redistributor 100 region 0:0x0000000048080000
+[    0.070162] CPU1: Booted secondary processor 0x0000000100 [0x412fd050]
+[    0.075769] Detected VIPT I-cache on CPU2
+[    0.075964] GICv3: CPU2: found redistributor 200 region 0:0x00000000480a0000
+[    0.076150] CPU2: Booted secondary processor 0x0000000200 [0x412fd050]
+[    0.077543] Detected VIPT I-cache on CPU3
+[    0.077728] GICv3: CPU3: found redistributor 300 region 0:0x00000000480c0000
+[    0.077867] CPU3: Booted secondary processor 0x0000000300 [0x412fd050]
+[    0.079332] Detected VIPT I-cache on CPU4
+[    0.079525] GICv3: CPU4: found redistributor 400 region 0:0x00000000480e0000
+[    0.079680] CPU4: Booted secondary processor 0x0000000400 [0x412fd050]
+[    0.080978] Detected VIPT I-cache on CPU5
+[    0.081179] GICv3: CPU5: found redistributor 500 region 0:0x0000000048100000
+[    0.081334] CPU5: Booted secondary processor 0x0000000500 [0x412fd050]
+[    0.081857] smp: Brought up 1 node, 6 CPUs
+[    0.082977] SMP: Total of 6 processors activated.
+[    0.083044] CPU: All CPU(s) started at EL2
+[    0.083135] CPU features: detected: 32-bit EL0 Support
+[    0.083209] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    0.083324] CPU features: detected: Common not Private translations
+[    0.083393] CPU features: detected: CRC32 instructions
+[    0.083520] CPU features: detected: RCpc load-acquire (LDAPR)
+[    0.083601] CPU features: detected: LSE atomic instructions
+[    0.083668] CPU features: detected: Privileged Access Never
+[    0.083727] CPU features: detected: RAS Extension Support
+[    0.083853] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    0.092748] alternatives: applying system-wide alternatives
+[    0.113474] Memory: 6981552K/8388608K available (21440K kernel code, 1628K rwdata, 8024K rodata, 4096K init, 745K bss, 418844K reserved, 983040K cma-reserved)
+[    0.139499] devtmpfs: initialized
+[    0.163715] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.164270] futex hash table entries: 2048 (order: 5, 131072 bytes, linear)
+[    0.180199] 23744 pages in range for non-PLT usage
+[    0.180248] 515264 pages in range for PLT usage
+[    0.183575] pinctrl core: initialized pinctrl subsystem
+[    0.194162] DMI not present or invalid.
+[    0.222486] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.233442] DMA: preallocated 1024 KiB GFP_KERNEL pool for atomic allocations
+[    0.234506] DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.235514] DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    0.235844] audit: initializing netlink subsys (disabled)
+[    0.238237] audit: type=2000 audit(0.216:1): state=initialized audit_enabled=0 res=1
+[    0.241180] thermal_sys: Registered thermal governor 'step_wise'
+[    0.241216] thermal_sys: Registered thermal governor 'power_allocator'
+[    0.242582] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.243781] ASID allocator initialised with 65536 entries
+[    0.245610] Serial: AMBA PL011 UART driver
+[    0.246309] imx mu driver is registered.
+[    0.246416] imx rpmsg driver is registered.
+[    0.265510] /soc/bus@42000000/i2c@426d0000/tcpc@50: Fixed dependency cycle(s) with /soc/usb@4c010010/usb@4c100000
+[    0.265777] /soc/bus@42000000/i2c@426d0000/tcpc@50/connector: Fixed dependency cycle(s) with /soc/phy@4c1f0040
+[    0.266287] /soc/phy@4c1f0040: Fixed dependency cycle(s) with /soc/bus@42000000/i2c@426d0000/tcpc@50/connector
+[    0.266521] /soc/usb@4c010010/usb@4c100000: Fixed dependency cycle(s) with /soc/bus@42000000/i2c@426d0000/tcpc@50
+[    0.268213] /soc/bus@42000000/i2c@426d0000/tcpc@50: Fixed dependency cycle(s) with /soc/usb@4c010010/usb@4c100000
+[    0.268371] /soc/bus@42000000/i2c@426d0000/tcpc@50/connector: Fixed dependency cycle(s) with /soc/phy@4c1f0040
+[    0.272037] /soc/bus@42000000/i2c@426d0000/tcpc@50: Fixed dependency cycle(s) with /soc/usb@4c010010/usb@4c100000
+[    0.272194] /soc/bus@42000000/i2c@426d0000/tcpc@50/connector: Fixed dependency cycle(s) with /soc/phy@4c1f0040
+[    0.288719] /soc/bus@42000000/i2c@426d0000/tcpc@50/connector: Fixed dependency cycle(s) with /soc/phy@4c1f0040
+[    0.288953] /soc/phy@4c1f0040: Fixed dependency cycle(s) with /soc/bus@42000000/i2c@426d0000/tcpc@50/connector
+[    0.289316] /soc/usb@4c010010/usb@4c100000: Fixed dependency cycle(s) with /soc/bus@42000000/i2c@426d0000/tcpc@50
+[    0.305743] HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+[    0.305850] HugeTLB: 0 KiB vmemmap can be freed for a 1.00 GiB page
+[    0.305942] HugeTLB: registered 32.0 MiB page size, pre-allocated 0 pages
+[    0.306012] HugeTLB: 0 KiB vmemmap can be freed for a 32.0 MiB page
+[    0.306076] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.306143] HugeTLB: 0 KiB vmemmap can be freed for a 2.00 MiB page
+[    0.306215] HugeTLB: registered 64.0 KiB page size, pre-allocated 0 pages
+[    0.306308] HugeTLB: 0 KiB vmemmap can be freed for a 64.0 KiB page
+[    0.315987] ACPI: Interpreter disabled.
+[    0.320127] iommu: Default domain type: Translated
+[    0.320222] iommu: DMA domain TLB invalidation policy: strict mode
+[    0.326215] SCSI subsystem initialized
+[    0.328978] usbcore: registered new interface driver usbfs
+[    0.329522] usbcore: registered new interface driver hub
+[    0.329747] usbcore: registered new device driver usb
+[    0.331596] mc: Linux media interface: v0.10
+[    0.331761] videodev: Linux video capture interface: v2.00
+[    0.332234] pps_core: LinuxPPS API ver. 1 registered
+[    0.332310] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.332462] PTP clock support registered
+[    0.332726] EDAC MC: Ver: 3.0.0
+[    0.334124] scmi_core: SCMI protocol bus registered
+[    0.335828] FPGA manager framework
+[    0.336544] Advanced Linux Sound Architecture Driver Initialized.
+[    0.346632] Bluetooth: Core ver 2.22
+[    0.347057] NET: Registered PF_BLUETOOTH protocol family
+[    0.347138] Bluetooth: HCI device and connection manager initialized
+[    0.347342] Bluetooth: HCI socket layer initialized
+[    0.347475] Bluetooth: L2CAP socket layer initialized
+[    0.347725] Bluetooth: SCO socket layer initialized
+[    0.352468] vgaarb: loaded
+[    0.355006] clocksource: Switched to clocksource arch_sys_counter
+[    0.356959] VFS: Disk quotas dquot_6.6.0
+[    0.357157] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.359766] pnp: PnP ACPI: disabled
+[    0.378046] NET: Registered PF_INET protocol family
+[    0.380054] IP idents hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    0.386968] tcp_listen_portaddr_hash hash table entries: 4096 (order: 4, 65536 bytes, linear)
+[    0.387156] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.387284] TCP established hash table entries: 65536 (order: 7, 524288 bytes, linear)
+[    0.387875] TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+[    0.390524] TCP: Hash tables configured (established 65536 bind 65536)
+[    0.391705] UDP hash table entries: 4096 (order: 5, 131072 bytes, linear)
+[    0.392121] UDP-Lite hash table entries: 4096 (order: 5, 131072 bytes, linear)
+[    0.393481] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.397018] RPC: Registered named UNIX socket transport module.
+[    0.397132] RPC: Registered udp transport module.
+[    0.397191] RPC: Registered tcp transport module.
+[    0.397247] RPC: Registered tcp-with-tls transport module.
+[    0.397309] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.399466] PCI: CLS 0 bytes, default 64
+[    0.403207] Unpacking initramfs...
+[    0.406105] Initialise system trusted keyrings
+[    0.407756] workingset: timestamp_bits=42 max_order=21 bucket_order=0
+[    0.409765] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.411758] NFS: Registering the id_resolver key type
+[    0.412207] Key type id_resolver registered
+[    0.412344] Key type id_legacy registered
+[    0.412752] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    0.412944] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+[    0.414139] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[    0.415305] 9p: Installing v9fs 9p2000 file system support
+[    0.445739] Key type asymmetric registered
+[    0.445969] Asymmetric key parser 'x509' registered
+[    0.446248] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 243)
+[    0.446543] io scheduler mq-deadline registered
+[    0.446642] io scheduler kyber registered
+[    0.447118] io scheduler bfq registered
+[    0.455325] ledtrig-cpu: registered to indicate activity on CPUs
+[    0.469152] Bus freq driver module loaded
+[    0.469916] imx9_init_soc imx95-soc: error -EINVAL: failed to register SoC device
+[    0.470221] imx9_init_soc imx95-soc: probe with driver imx9_init_soc failed with error -22
+[    0.481043] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.491178] arm-smmu-v3 490d0000.iommu: no translation support!
+[    0.492869] simple_protected_memory_allocator protected-memory-allocator: Protected memory allocator probed successfully
+[    0.493021] simple_protected_memory_allocator protected-memory-allocator: Protected memory region: base=(____ptrval____) num pages=4096
+[    0.521077] loop: module loaded
+[    0.524464] megasas: 07.727.03.00-rc1
+[    0.532115] MACsec IEEE 802.1AE
+[    0.537402] tun: Universal TUN/TAP device driver, 1.6
+[    0.539270] thunder_xcv, ver 1.0
+[    0.539420] thunder_bgx, ver 1.0
+[    0.539518] nicpf, ver 1.0
+[    0.541299] hns3: Hisilicon Ethernet Network Driver for Hip08 Family - version
+[    0.541393] hns3: Copyright (c) 2017 Huawei Corporation.
+[    0.541752] hclge is initializing
+[    0.541893] e1000: Intel(R) PRO/1000 Network Driver
+[    0.541953] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    0.542102] e1000e: Intel(R) PRO/1000 Network Driver
+[    0.542161] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+[    0.542359] igb: Intel(R) Gigabit Ethernet Network Driver
+[    0.542430] igb: Copyright (c) 2007-2014 Intel Corporation.
+[    0.542562] igbvf: Intel(R) Gigabit Virtual Function Network Driver
+[    0.542632] igbvf: Copyright (c) 2009 - 2012 Intel Corporation.
+[    0.543019] sky2: driver version 1.30
+[    0.543991] usbcore: registered new device driver r8152-cfgselector
+[    0.544131] usbcore: registered new interface driver r8152
+[    0.545415] VFIO - User Level meta-driver version: 0.3
+[    0.550706] usbcore: registered new interface driver uas
+[    0.551113] usbcore: registered new interface driver usb-storage
+[    0.551566] usbcore: registered new interface driver usbserial_generic
+[    0.551908] usbserial: USB Serial support registered for generic
+[    0.552069] usbcore: registered new interface driver ftdi_sio
+[    0.552180] usbserial: USB Serial support registered for FTDI USB Serial Device
+[    0.552309] usbcore: registered new interface driver usb_serial_simple
+[    0.552413] usbserial: USB Serial support registered for carelink
+[    0.552524] usbserial: USB Serial support registered for flashloader
+[    0.552610] usbserial: USB Serial support registered for funsoft
+[    0.552692] usbserial: USB Serial support registered for google
+[    0.552771] usbserial: USB Serial support registered for hp4x
+[    0.552848] usbserial: USB Serial support registered for kaufmann
+[    0.552928] usbserial: USB Serial support registered for libtransistor
+[    0.553013] usbserial: USB Serial support registered for moto_modem
+[    0.553096] usbserial: USB Serial support registered for motorola_tetra
+[    0.553193] usbserial: USB Serial support registered for nokia
+[    0.553282] usbserial: USB Serial support registered for novatel_gps
+[    0.553366] usbserial: USB Serial support registered for owon
+[    0.553444] usbserial: USB Serial support registered for siemens_mpi
+[    0.553536] usbserial: USB Serial support registered for suunto
+[    0.553615] usbserial: USB Serial support registered for vivopay
+[    0.553694] usbserial: USB Serial support registered for zio
+[    0.553811] usbcore: registered new interface driver usb_ehset_test
+[    0.560275] i2c_dev: i2c /dev entries driver
+[    0.567279] Bluetooth: HCI UART driver ver 2.3
+[    0.567460] Bluetooth: HCI UART protocol H4 registered
+[    0.567603] Bluetooth: HCI UART protocol BCSP registered
+[    0.567722] Bluetooth: HCI UART protocol LL registered
+[    0.567793] Bluetooth: HCI UART protocol ATH3K registered
+[    0.567895] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[    0.568128] Bluetooth: HCI UART protocol Broadcom registered
+[    0.568228] Bluetooth: HCI UART protocol QCA registered
+[    0.570112] failed to register cpuidle driver
+[    0.571067] sdhci: Secure Digital Host Controller Interface driver
+[    0.571149] sdhci: Copyright(c) Pierre Ossman
+[    0.571823] Synopsys Designware Multimedia Card Interface Driver
+[    0.572683] sdhci-pltfm: SDHCI platform and OF driver helper
+[    0.580209] arm-scmi arm-scmi.0.auto: Using scmi_mailbox_transport
+[    0.580342] arm-scmi arm-scmi.0.auto: SCMI max-rx-timeout: 5000ms
+[    0.584335] arm-scmi arm-scmi.0.auto: SCMI Notifications - Core Enabled.
+[    0.588242] arm-scmi arm-scmi.0.auto: SCMI Protocol v2.1 'NXP:IMX' Firmware version 0x333
+[    0.604676] cpu cpu0: EM: invalid power: 0
+[    0.609132] scmi-perf-domain scmi_dev.5: Initialized 13 performance domains
+[    0.664217] thermal thermal_zone0: Temperature check failed (-16)
+[    0.664983] thermal thermal_zone1: Temperature check failed (-16)
+[    0.678241] scmi_module: Loaded SCMI Vendor Protocol 0x81 - NXP IMX 0
+[    0.678980] arm-scmi arm-scmi.0.auto: NXP SM BBM Version 1.0
+[    0.683555] scmi-imx-bbm-rtc scmi_dev.10: registered as rtc0
+[    0.684155] scmi-imx-bbm-rtc scmi_dev.10: setting system clock to 1970-01-01T00:00:00 UTC (0)
+[    0.685197] scmi-imx-bbm-key scmi_dev.11: key code is not specified, using default KEY_POWER
+[    0.686716] input: scmi_dev.11 as /devices/platform/arm-scmi.0.auto/scmi_dev.11/input/input0
+[    0.691239] scmi_module: Loaded SCMI Vendor Protocol 0x82 - NXP IMX 0
+[    0.691743] arm-scmi arm-scmi.0.auto: NXP SM CPU Protocol Version 1.0
+[    0.691958] arm-scmi arm-scmi.0.auto: i.MX SM MAX CPU: 9 cpus
+[    0.692322] arm-scmi arm-scmi.0.auto: i.MX CPU: name: m33p
+[    0.692463] arm-scmi arm-scmi.0.auto: i.MX CPU: name: m7p
+[    0.692590] arm-scmi arm-scmi.0.auto: i.MX CPU: name: a55c0
+[    0.692703] arm-scmi arm-scmi.0.auto: i.MX CPU: name: a55c1
+[    0.692814] arm-scmi arm-scmi.0.auto: i.MX CPU: name: a55c2
+[    0.692923] arm-scmi arm-scmi.0.auto: i.MX CPU: name: a55c3
+[    0.693049] arm-scmi arm-scmi.0.auto: i.MX CPU: name: a55c4
+[    0.693159] arm-scmi arm-scmi.0.auto: i.MX CPU: name: a55c5
+[    0.693269] arm-scmi arm-scmi.0.auto: i.MX CPU: name: a55p
+[    0.693743] scmi_module: Loaded SCMI Vendor Protocol 0x84 - NXP IMX 0
+[    0.694148] arm-scmi arm-scmi.0.auto: NXP SM MISC Version 1.1
+[    0.694328] arm-scmi arm-scmi.0.auto: i.MX MISC NUM DEV CTRL: 7, NUM BRD CTRL: 8,NUM Reason: 32
+[    0.695319] arm-scmi arm-scmi.0.auto: Protocol 0x84 successfully negotiated version 0x10000
+[    0.698114] scmi_module: Loaded SCMI Vendor Protocol 0x80 - NXP IMX 0
+[    0.698345] arm-scmi arm-scmi.0.auto: NXP SM LMM Version 1.1
+[    0.698514] arm-scmi arm-scmi.0.auto: i.MX LMM: 3 Logical Machines
+[    0.698922] arm-scmi arm-scmi.0.auto: Protocol 0x80 successfully negotiated version 0x10000
+[    3.396873] Freeing initrd memory: 136904K
+[    5.879206] fsl-se secure-enclave-0: Fatal Error: SE interface: hsm0, hangs indefinitely.
+[    5.880059] fsl-se secure-enclave-0: Failed to fetch SoC Info.
+[    5.880168] fsl-se secure-enclave-0: failed[-ETIMEDOUT] to fetch SoC Info
+[    5.880252] fsl-se secure-enclave-0: error -ETIMEDOUT: se_if_probe: Probe failed.
+[    5.880344] fsl-se secure-enclave-0: probe with driver fsl-se failed with error -110
+[    5.884978] No matching index found for soc_id = 38144.
+[    5.885021] fsl-se secure-enclave-1: error -EPERM: se_if_probe: Probe failed.
+[    5.885184] fsl-se secure-enclave-1: probe with driver fsl-se failed with error -1
+[    5.885390] No matching index found for soc_id = 38144.
+[    5.885402] fsl-se secure-enclave-2: error -EPERM: se_if_probe: Probe failed.
+[    5.885540] fsl-se secure-enclave-2: probe with driver fsl-se failed with error -1
+[    5.885724] No matching index found for soc_id = 38144.
+[    5.885735] fsl-se secure-enclave-3: error -EPERM: se_if_probe: Probe failed.
+[    5.885869] fsl-se secure-enclave-3: probe with driver fsl-se failed with error -1
+[    5.886040] No matching index found for soc_id = 38144.
+[    5.886050] fsl-se secure-enclave-4: error -EPERM: se_if_probe: Probe failed.
+[    5.886182] fsl-se secure-enclave-4: probe with driver fsl-se failed with error -1
+[    5.886336] No matching index found for soc_id = 38144.
+[    5.886345] fsl-se secure-enclave-5: error -EPERM: se_if_probe: Probe failed.
+[    5.886481] fsl-se secure-enclave-5: probe with driver fsl-se failed with error -1
+[    5.888194] usbcore: registered new interface driver usbhid
+[    5.888286] usbhid: USB HID core driver
+[    5.894524] remoteproc remoteproc0: neutron-rproc is available
+[    5.899715] imx93-adc 44530000.adc: ADC do not in power down mode, current MSR is 0
+[    5.900014] imx93-adc 44530000.adc: ADC do not in power down mode, current MSR is 0
+[    5.901903] imx93-adc 44530000.adc: ADC do not in power down mode, current MSR is 0
+[    5.906529] hw perfevents: enabled with armv8_cortex_a55 PMU driver, 7 (0,8000003f) counters available
+[    5.912414]  cs_system_cfg: CoreSight Configuration manager initialised
+[    5.915632] No matching index found for soc_id = 38144.
+[    5.915658] fsl-ocotp-fsb-s400 47510000.efuse: failed to get the se-fw2 device
+[    5.926650] NET: Registered PF_LLC protocol family
+[    5.927337] GACT probability NOT on
+[    5.927726] Mirror/redirect action on
+[    5.928349] u32 classifier
+[    5.928395]     input device check on
+[    5.928439]     Actions configured
+[    5.931835] NET: Registered PF_INET6 protocol family
+[    5.938893] Segment Routing with IPv6
+[    5.939209] In-situ OAM (IOAM) with IPv6
+[    5.940088] NET: Registered PF_PACKET protocol family
+[    5.940689] bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+[    5.942127] Bluetooth: RFCOMM TTY layer initialized
+[    5.942251] Bluetooth: RFCOMM socket layer initialized
+[    5.942374] Bluetooth: RFCOMM ver 1.11
+[    5.942480] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[    5.942548] Bluetooth: BNEP filters: protocol multicast
+[    5.943848] Bluetooth: BNEP socket layer initialized
+[    5.943970] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[    5.944084] Bluetooth: HIDP socket layer initialized
+[    5.945578] 8021q: 802.1Q VLAN Support v1.8
+[    5.947016] 9pnet: Installing 9P2000 support
+[    5.947697] Key type dns_resolver registered
+[    5.948373] NET: Registered PF_VSOCK protocol family
+[    5.974885] registered taskstats version 1
+[    5.976689] Loading compiled-in X.509 certificates
+[    5.985715] Demotion targets for Node 0: null
+[    6.025217] usb_phy_generic usbphynop: dummy supplies not allowed for exclusive requests (id=vbus)
+[    6.032583] pca953x 2-0020: using no AI
+[    6.539658] pca953x 2-0020: failed writing register: -110
+[    6.541691] pca953x 2-0020: probe with driver pca953x failed with error -110
+[    8.054931] leds-pca963x 2-0062: probe with driver leds-pca963x failed with error -110
+[    8.055826] i2c i2c-2: LPI2C adapter registered
+[    8.058581] i2c i2c-3: LPI2C adapter registered
+[    8.060926] pca953x 4-0021: using no AI
+[    8.562869] pca953x 4-0021: failed writing register: -110
+[    8.563213] pca953x 4-0021: probe with driver pca953x failed with error -110
+[    8.563539] i2c i2c-4: LPI2C adapter registered
+[    8.566305] i2c i2c-5: LPI2C adapter registered
+[    8.569061] /soc/usb@4c010010/usb@4c100000: Fixed dependency cycle(s) with /soc/bus@42000000/i2c@426d0000/tcpc@50
+[    8.569334] /soc/bus@42000000/i2c@426d0000/tcpc@50: Fixed dependency cycle(s) with /soc/usb@4c010010/usb@4c100000
+[    8.569530] /soc/bus@42000000/i2c@426d0000/tcpc@50/connector: Fixed dependency cycle(s) with /soc/phy@4c1f0040
+[    8.569835] i2c i2c-6: LPI2C adapter registered
+[    9.075116] adp5585 1-0034: error -ETIMEDOUT: Failed to read device ID
+[    9.075583] adp5585 1-0034: probe with driver adp5585 failed with error -110
+[    9.075839] i2c i2c-1: LPI2C adapter registered
+[    9.079448] imx8mq-usb-phy 4c1f0040.phy: supply vbus not found, using dummy regulator
+[    9.086470] imx7ulp-tpm-pwm 424e0000.pwm: error -EINVAL: failed to add PWM chip
+[    9.086590] imx7ulp-tpm-pwm 424e0000.pwm: probe with driver imx7ulp-tpm-pwm failed with error -22
+[    9.088021] imx7ulp-tpm-pwm 42510000.pwm: error -EINVAL: failed to add PWM chip
+[    9.088129] imx7ulp-tpm-pwm 42510000.pwm: probe with driver imx7ulp-tpm-pwm failed with error -22
+[    9.095620] clk: failed to reparent dispaxi to syspll1_pfd1: -1
+[    9.095749] clk: failed to reparent dispocram to syspll1_pfd1: -1
+[    9.095832] clk: failed to reparent dispapb to syspll1_pfd1_di: -1
+[    9.098296] clk: failed to reparent dispaxi to syspll1_pfd1: -1
+[    9.098396] clk: failed to reparent dispocram to syspll1_pfd1: -1
+[    9.098469] clk: failed to reparent dispapb to syspll1_pfd1_di: -1
+[    9.100982] clk: failed to reparent busnetcmix to syspll1_pfd1_di: -1
+[    9.101643] clk: failed to reparent busnetcmix to syspll1_pfd1_di: -1
+[    9.102121] clk: failed to reparent vpuapb to syspll1_pfd1_di: -1
+[    9.102213] clk: failed to reparent vpu to syspll1_pfd2: -1
+[    9.102282] clk: failed to reparent vpujpeg to syspll1_pfd0: -1
+[    9.103413] clk: failed to reparent vpuapb to syspll1_pfd1_di: -1
+[    9.103509] clk: failed to reparent vpu to syspll1_pfd2: -1
+[    9.103578] clk: failed to reparent vpujpeg to syspll1_pfd0: -1
+[    9.106592] 42590000.serial: ttyLP4 at MMIO 0x42590010 (irq = 111, base_baud = 1500000) is a FSL_LPUART
+[    9.107790] serial serial0: tty port ttyLP4 registered
+[    9.109504] 44380000.serial: ttyLP0 at MMIO 0x44380010 (irq = 112, base_baud = 1500000) is a FSL_LPUART
+[    9.111679] printk: legacy console [ttyLP0] enabled
+[    9.111679] printk: legacy console [ttyLP0] enabled
+[    9.112046] printk: legacy bootconsole [lpuart32] disabled
+[    9.112046] printk: legacy bootconsole [lpuart32] disabled
+[    9.118060] mali 4d900000.gpu: Kernel DDK version r54p1-11eac0
+[    9.119207] mali 4d900000.gpu: GPU metrics tracepoint support enabled
+[    9.125661] mali 4d900000.gpu: Register LUT 000a0800 initialized for GPU arch 0x00000000
+[    9.126925] mali 4d900000.gpu: HW product - Unknown GPU Product ID 0
+[    9.129625] mali 4d900000.gpu: Early device initialization failed error = -22
+[    9.130380] mali 4d900000.gpu: Device initialization failed
+[    9.130491] mali 4d900000.gpu: probe with driver mali failed with error -22
+[    9.142062] [drm] Initialized imx95-dpu 1.0.0 for 4b400000.display-controller on minor 0
+[    9.144096] imx95-dpu 4b400000.display-controller: [drm] Cannot find any crtc or sizes
+[    9.173404] ------------[ cut here ]------------
+[    9.173571] WARNING: CPU: 2 PID: 58 at drivers/spi/spi-nxp-fspi.c:1082 nxp_fspi_exec_op+0x83c/0xe8c
+[    9.173986] Modules linked in:
+[    9.174679] CPU: 2 UID: 0 PID: 58 Comm: kworker/u24:1 Not tainted 6.12.49-gdf24f9428e38 #1
+[    9.174875] Hardware name: NXP i.MX95 19X19 board (DT)
+[    9.175103] Workqueue: events_unbound deferred_probe_work_func
+[    9.175312] pstate: 40400009 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    9.175409] pc : nxp_fspi_exec_op+0x83c/0xe8c
+[    9.175469] lr : nxp_fspi_exec_op+0x7c/0xe8c
+[    9.175527] sp : ffff800082c33250
+[    9.175573] x29: ffff800082c33290 x28: ffff8000820e69c0 x27: ffff8000820e6000
+[    9.175752] x26: ffff0000802ef040 x25: ffff000080453d80 x24: ffff000080454880
+[    9.175842] x23: ffff8000822f03a0 x22: ffff000081aa5500 x21: ffff000081aa5500
+[    9.175933] x20: ffff000080453de8 x19: ffff800082c335a0 x18: 0000000000000001
+[    9.176023] x17: 000000000000001c x16: 00000000c861cf83 x15: ffff0001fef2ac40
+[    9.176116] x14: ffff000080b60080 x13: 0000000000000001 x12: 0000000000000000
+[    9.176205] x11: 00000000000000c0 x10: 0000000000000a70 x9 : ffff800082c33080
+[    9.176310] x8 : ffff000080b60ad0 x7 : ffff0001fef2acc0 x6 : 0000000000000000
+[    9.176409] x5 : 0000000000000001 x4 : 00ffffffffffffff x3 : 000000000001d221
+[    9.176500] x2 : 0008a58097892596 x1 : 0000000000000ce0 x0 : 00000000ffffff92
+[    9.176706] Call trace:
+[    9.176756]  nxp_fspi_exec_op+0x83c/0xe8c
+[    9.176832]  spi_mem_exec_op+0x398/0x428
+[    9.176883]  spi_nor_read_id+0x80/0xcc
+[    9.176931]  spi_nor_scan+0x1c0/0xf7c
+[    9.176978]  spi_nor_probe+0x98/0x2ec
+[    9.177026]  spi_mem_probe+0x6c/0xa8
+[    9.177071]  spi_probe+0x98/0x13c
+[    9.177116]  really_probe+0xbc/0x298
+[    9.177178]  __driver_probe_device+0x78/0x12c
+[    9.177229]  driver_probe_device+0x40/0x160
+[    9.177280]  __device_attach_driver+0xb8/0x134
+[    9.177332]  bus_for_each_drv+0x84/0xe4
+[    9.177379]  __device_attach+0xac/0x1b8
+[    9.177426]  device_initial_probe+0x14/0x20
+[    9.177476]  bus_probe_device+0xa8/0xac
+[    9.177523]  device_add+0x598/0x758
+[    9.177566]  __spi_add_device+0x13c/0x224
+[    9.177615]  of_register_spi_device+0x3a0/0x5c0
+[    9.177673]  spi_register_controller+0x398/0x764
+[    9.177729]  devm_spi_register_controller+0x4c/0xa4
+[    9.177786]  nxp_fspi_probe+0x340/0x384
+[    9.177833]  platform_probe+0x68/0xdc
+[    9.177891]  really_probe+0xbc/0x298
+[    9.177935]  __driver_probe_device+0x78/0x12c
+[    9.177985]  driver_probe_device+0x40/0x160
+[    9.178036]  __device_attach_driver+0xb8/0x134
+[    9.178089]  bus_for_each_drv+0x84/0xe4
+[    9.178134]  __device_attach+0xac/0x1b8
+[    9.178183]  device_initial_probe+0x14/0x20
+[    9.178233]  bus_probe_device+0xa8/0xac
+[    9.178279]  deferred_probe_work_func+0x80/0xb8
+[    9.178332]  process_one_work+0x150/0x294
+[    9.178381]  worker_thread+0x2dc/0x3dc
+[    9.178426]  kthread+0x118/0x11c
+[    9.178467]  ret_from_fork+0x10/0x20
+[    9.178556] ---[ end trace 0000000000000000 ]---
+[   10.199822] spi-nor spi1.0: probe with driver spi-nor failed with error -110
+[   10.201377] clk: failed to reparent enet to syspll1_pfd2: -1
+[   10.204637] pci-host-generic 4ca00000.pcie: host bridge /soc/netc-blk-ctrl@4cde0000/pcie@4ca00000 ranges:
+[   10.205379] pci-host-generic 4ca00000.pcie:      MEM 0x004cc00000..0x004ccdffff -> 0x004cc00000
+[   10.205726] pci-host-generic 4ca00000.pcie:      MEM 0x004cd00000..0x004cd0ffff -> 0x004cd00000
+[   10.205859] pci-host-generic 4ca00000.pcie:      MEM 0x004cd20000..0x004cd7ffff -> 0x004cd20000
+[   10.205982] pci-host-generic 4ca00000.pcie:      MEM 0x004cd80000..0x004cddffff -> 0x004cd80000
+[   10.207193] pci-host-generic 4ca00000.pcie: ECAM at [mem 0x4ca00000-0x4cafffff] for [bus 00]
+[   10.210210] pci-host-generic 4ca00000.pcie: PCI host bridge to bus 0002:00
+[   10.210615] pci_bus 0002:00: root bus resource [bus 00]
+[   10.210731] pci_bus 0002:00: root bus resource [mem 0x4cc00000-0x4ccdffff]
+[   10.211025] pci_bus 0002:00: root bus resource [mem 0x4cd00000-0x4cd0ffff pref]
+[   10.211222] pci_bus 0002:00: root bus resource [mem 0x4cd20000-0x4cd7ffff]
+[   10.211302] pci_bus 0002:00: root bus resource [mem 0x4cd80000-0x4cddffff pref]
+[   10.215649] pci_bus 0002:00: resource 4 [mem 0x4cc00000-0x4ccdffff]
+[   10.215760] pci_bus 0002:00: resource 5 [mem 0x4cd00000-0x4cd0ffff pref]
+[   10.215839] pci_bus 0002:00: resource 6 [mem 0x4cd20000-0x4cd7ffff]
+[   10.215910] pci_bus 0002:00: resource 7 [mem 0x4cd80000-0x4cddffff pref]
+[   10.216995] pci-host-generic 4cb00000.pcie: host bridge /soc/netc-blk-ctrl@4cde0000/pcie@4cb00000 ranges:
+[   10.217162] pci-host-generic 4cb00000.pcie:      MEM 0x004cce0000..0x004ccfffff -> 0x004cce0000
+[   10.217276] pci-host-generic 4cb00000.pcie:      MEM 0x004cd10000..0x004cd1ffff -> 0x004cd10000
+[   10.217451] pci-host-generic 4cb00000.pcie: ECAM at [mem 0x4cb00000-0x4cbfffff] for [bus 01]
+[   10.217725] pci-host-generic 4cb00000.pcie: PCI host bridge to bus 0003:01
+[   10.217835] pci_bus 0003:01: root bus resource [bus 01]
+[   10.217899] pci_bus 0003:01: root bus resource [mem 0x4cce0000-0x4ccfffff]
+[   10.217974] pci_bus 0003:01: root bus resource [mem 0x4cd10000-0x4cd1ffff pref]
+[   10.221135] pci_bus 0003:01: resource 4 [mem 0x4cce0000-0x4ccfffff]
+[   10.221230] pci_bus 0003:01: resource 5 [mem 0x4cd10000-0x4cd1ffff pref]
+[   10.224132] /soc/bus@42000000/i2c@426d0000/tcpc@50: Fixed dependency cycle(s) with /soc/usb@4c010010/usb@4c100000
+[   10.224467] /soc/usb@4c010010/usb@4c100000: Fixed dependency cycle(s) with /soc/bus@42000000/i2c@426d0000/tcpc@50
+[   10.833055] imx7ulp-wdt 42490000.watchdog: probe with driver imx7ulp-wdt failed with error -16
+[   10.837488] imx-rproc imx95-cm7: Using LMM Protocol OPS
+[   10.838170] remoteproc remoteproc1: imx-rproc is available
+[   10.839225] No matching index found for soc_id = 38144.
+[   10.839242] fsl-ocotp-fsb-s400 47510000.efuse: failed to get the se-fw2 device
+[   10.841653] wave6-vpu-ctrl 4c4c0000.vpu-ctrl: boot phys_addr: 0x00000000a0000000, dma_addr: 0x00000000a0000000, size: 0x100000
+[   10.842130] wave6-vpu-ctrl 4c4c0000.vpu-ctrl: sram 0x0x00000000204c0000, 0x0x00000000204c0000, size 0x14800
+[   10.914462] pca953x 3-0021: using no AI
+[   11.414876] pca953x 3-0021: failed writing register: -110
+[   11.415342] pca953x 3-0021: probe with driver pca953x failed with error -110
+[   11.416336] pca953x 5-0021: using no AI
+[   11.918850] pca953x 5-0021: failed writing register: -110
+[   11.919299] pca953x 5-0021: probe with driver pca953x failed with error -110
+[   11.920326] pca953x 6-0022: using AI
+[   12.422910] pca953x 6-0022: failed writing register: -110
+[   12.423072] pca953x 6-0022: probe with driver pca953x failed with error -110
+[   12.926972] tcpci 6-0050: probe with driver tcpci failed with error -110
+[   12.931646] No matching index found for soc_id = 38144.
+[   12.931669] fsl-ocotp-fsb-s400 47510000.efuse: failed to get the se-fw2 device
+[   12.940917] No matching index found for soc_id = 38144.
+[   12.940941] fsl-ocotp-fsb-s400 47510000.efuse: failed to get the se-fw2 device
+[   12.950107] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[   12.964045] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[   12.964507] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[   12.964914] clk: Disabling unused clocks
+[   12.966681] platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+[   12.967150] platform regulatory.0: Falling back to sysfs fallback for: regulatory.db
+[   12.983990] PM: genpd: Disabling unused power domains
+[   12.985010] ALSA device list:
+[   12.985493]   No soundcards found.
+[   13.072827] Freeing unused kernel memory: 4096K
+[   13.074434] Run /init as init process
+=== ORB-SLAM3 headless on imx95 (A55, TCG) ===
+cores: 6
+RAM: 7.7Gi total, 7.3Gi avail
+frames: 250
+--- ldd mono_euroc ---
+  all libs resolved
+=== RUN (wall-clock timed) ===
+num_seq = 1
+Loading images for sequence 0...LOADED!
+
+-------
+
+ORB-SLAM3 Copyright (C) 2017-2020 Carlos Campos, Richard Elvira, Juan J. Gómez, José M.M. Montiel and Juan D. Tardós, University of Zaragoza.
+ORB-SLAM2 Copyright (C) 2014-2016 Raúl Mur-Artal, José M.M. Montiel and Juan D. Tardós, University of Zaragoza.
+This program comes with ABSOLUTELY NO WARRANTY;
+This is free software, and you are welcome to redistribute it
+under certain conditions. See LICENSE.txt.
+
+Input sensor was set to: Monocular
+Loading settings from /opt/orbslam/data/EuRoC.yaml
+Camera1.k3 optional parameter does not exist...
+	-Loaded camera 1
+	-Loaded image info
+	-Loaded ORB settings
+Viewer.imageViewScale optional parameter does not exist...
+	-Loaded viewer settings
+System.LoadAtlasFromFile optional parameter does not exist...
+System.SaveAtlasToFile optional parameter does not exist...
+	-Loaded Atlas settings
+System.thFarPoints optional parameter does not exist...
+	-Loaded misc parameters
+----------------------------------
+SLAM settings: 
+	-Camera 1 parameters (Pinhole): [ 458.65399169921875 457.29598999023438 367.21499633789062 248.375 ]
+	-Camera 1 distortion parameters: [  -0.28340810537338257 0.073959067463874817 0.00019359000725671649 1.7618711353861727e-05 ]
+	-Original image size: [ 752 , 480 ]
+	-Current image size: [ 600 , 350 ]
+	-Camera 1 parameters after resize: [  365.94735717773438 333.44500732421875 292.99069213867188 181.10678100585938 ]
+	-Sequence FPS: 20
+	-Features per image: 1000
+	-ORB scale factor: 1.2000000476837158
+	-ORB number of scales: 8
+	-Initial FAST threshold: 20
+	-Min FAST threshold: 7
+
+
+Loading ORB Vocabulary. This could take a while...
+[   23.036516] dwc3 4c100000.usb: deferred probe timeout, ignoring dependency
+[   23.039729] dwc3 4c100000.usb: this is not a DesignWare USB3 DRD Core
+[   23.042189] No matching index found for soc_id = 38144.
+[   23.042225] fsl-ocotp-fsb-s400 47510000.efuse: failed to get the se-fw2 device
+[   23.044168] fsl-edma 42210000.dma-controller: deferred probe timeout, ignoring dependency
+[   23.058142] sdhci-esdhc-imx 42860000.mmc: deferred probe timeout, ignoring dependency
+[   23.062090] sdhci-esdhc-imx 42850000.mmc: deferred probe timeout, ignoring dependency
+[   23.063380] sdhci-esdhc-imx 42860000.mmc: Got CD GPIO
+[   23.064222] neutron 4ab00004.imx95-neutron: deferred probe timeout, ignoring dependency
+[   23.068143] neutron 4ab00004.imx95-neutron: created neutron device, name=neutron0
+[   23.072476] No matching index found for soc_id = 38144.
+[   23.072496] fsl-ocotp-fsb-s400 47510000.efuse: failed to get the se-fw2 device
+[   23.077080] platform regulator-aqr-stby: deferred probe pending: platform: supplier 4-0021 not ready
+[   23.077228] platform regulator-aqr-en: deferred probe pending: platform: supplier regulator-aqr-stby not ready
+[   23.077336] platform regulator-si5332-stby: deferred probe pending: platform: supplier 6-0022 not ready
+[   23.077435] platform regulator-mac-en: deferred probe pending: platform: supplier 4-0021 not ready
+[   23.077539] platform 4c300000.pcie: deferred probe pending: platform: supplier regulator-pcie not ready
+[   23.077638] platform 4c380000.pcie: deferred probe pending: platform: supplier regulator-slot-pwr not ready
+[   23.077742] platform 4c200000.usb: deferred probe pending: platform: supplier regulator-vbus not ready
+[   23.077841] platform 47510000.efuse: deferred probe pending: (reason unknown)
+[   23.077918] platform sound-bt-sco: deferred probe pending: asoc-simple-card: parse error
+[   23.078006] platform regulator-audio-pwr: deferred probe pending: platform: supplier 3-0021 not ready
+[   23.078100] platform regulator-m2-pwr: deferred probe pending: platform: supplier 6-0022 not ready
+[   23.078230] platform regulator-pcie: deferred probe pending: platform: supplier regulator-m2-pwr not ready
+[   23.078412] platform regulator-slot-pwr: deferred probe pending: platform: supplier 6-0022 not ready
+[   23.078514] platform regulator-can1-stby: deferred probe pending: platform: supplier regulator-can1-en not ready
+[   23.078624] platform regulator-can1-en: deferred probe pending: platform: supplier 5-0021 not ready
+[   23.078722] platform regulator-can2-stby: deferred probe pending: platform: supplier regulator-can2-en not ready
+[   23.078979] platform regulator-can2-en: deferred probe pending: platform: supplier 3-0021 not ready
+[   23.104534] mmc0: SDHCI controller on 42850000.mmc [42850000.mmc] using ADMA
+[   23.105765] mmc1: SDHCI controller on 42860000.mmc [42860000.mmc] using ADMA
+[   23.109054] No matching index found for soc_id = 38144.
+[   23.109072] fsl-ocotp-fsb-s400 47510000.efuse: failed to get the se-fw2 device
+[   33.271101] mmc1: Timeout waiting for hardware cmd interrupt.
+[   33.271293] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   33.271588] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   33.271738] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   33.271928] mmc1: sdhci: Argument:  0x00000c00 | Trn mode: 0x00000000
+[   33.272054] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   33.272166] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   33.272276] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   33.272410] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   33.272522] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   33.272712] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   33.272832] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   33.272941] mmc1: sdhci: Cmd:       0x0000341a | Max curr: 0x00ffffff
+[   33.273048] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   33.273167] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   33.273272] mmc1: sdhci: Host ctl2: 0x00000000
+[   33.273365] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   33.273489] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   33.273630] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   33.273719] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[   33.273800] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[   33.273891] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[   33.273967] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[   33.274046] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   33.274106] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   33.274206] mmc1: sdhci: ============================================
+[   33.274479] mmc0: Timeout waiting for hardware cmd interrupt.
+[   33.274569] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   33.274638] mmc0: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   33.274724] mmc0: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   33.274830] mmc0: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   33.274912] mmc0: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   33.274984] mmc0: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   33.275054] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   33.275149] mmc0: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   33.275234] mmc0: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   33.275344] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   33.275463] mmc0: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   33.275539] mmc0: sdhci: Cmd:       0x00000000 | Max curr: 0x00ffffff
+[   33.275634] mmc0: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   33.275732] mmc0: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   33.275812] mmc0: sdhci: Host ctl2: 0x00000000
+[   33.275877] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   33.275961] mmc0: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   33.276082] mmc0: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   33.276145] mmc0: sdhci-esdhc-imx: data debug status:  0x0000
+[   33.276217] mmc0: sdhci-esdhc-imx: trans debug status:  0x0000
+[   33.276300] mmc0: sdhci-esdhc-imx: dma debug status:  0x0000
+[   33.276374] mmc0: sdhci-esdhc-imx: adma debug status:  0x0000
+[   33.276449] mmc0: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   33.276510] mmc0: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   33.276578] mmc0: sdhci: ============================================
+[   43.510808] mmc1: Timeout waiting for hardware cmd interrupt.
+[   43.510958] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   43.511056] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   43.511152] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   43.511257] mmc1: sdhci: Argument:  0x80000c08 | Trn mode: 0x00000000
+[   43.511346] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   43.511437] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   43.511529] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   43.511617] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   43.511705] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   43.511793] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   43.511881] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   43.511975] mmc1: sdhci: Cmd:       0x0000341a | Max curr: 0x00ffffff
+[   43.512064] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   43.512150] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   43.512238] mmc1: sdhci: Host ctl2: 0x00000000
+[   43.512303] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   43.512387] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   43.512493] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   43.512573] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[   43.512663] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[   43.512742] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[   43.512819] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[   43.512897] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   43.512976] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   43.513110] mmc1: sdhci: ============================================
+[   43.513307] mmc0: Timeout waiting for hardware cmd interrupt.
+[   43.513414] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   43.513523] mmc0: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   43.513633] mmc0: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   43.513707] mmc0: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   43.513783] mmc0: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   43.513867] mmc0: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   43.513946] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   43.514011] mmc0: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   43.514078] mmc0: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   43.514155] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   43.514223] mmc0: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   43.514291] mmc0: sdhci: Cmd:       0x00000102 | Max curr: 0x00ffffff
+[   43.514357] mmc0: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   43.514484] mmc0: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   43.514558] mmc0: sdhci: Host ctl2: 0x00000000
+[   43.514607] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   43.514673] mmc0: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   43.514749] mmc0: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   43.514817] mmc0: sdhci-esdhc-imx: data debug status:  0x0000
+[   43.514916] mmc0: sdhci-esdhc-imx: trans debug status:  0x0000
+[   43.515000] mmc0: sdhci-esdhc-imx: dma debug status:  0x0000
+[   43.515060] mmc0: sdhci-esdhc-imx: adma debug status:  0x0000
+[   43.515139] mmc0: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   43.515226] mmc0: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   43.515306] mmc0: sdhci: ============================================
+[   53.750847] mmc1: Timeout waiting for hardware cmd interrupt.
+[   53.750979] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   53.751057] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   53.751130] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   53.751200] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   53.751268] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   53.751340] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   53.751407] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   53.751483] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   53.751550] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   53.751617] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   53.751684] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   53.751750] mmc1: sdhci: Cmd:       0x00000000 | Max curr: 0x00ffffff
+[   53.751817] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   53.751882] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   53.751948] mmc1: sdhci: Host ctl2: 0x00000000
+[   53.751997] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   53.752063] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   53.752143] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   53.752210] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[   53.752270] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[   53.752335] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[   53.752393] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[   53.752453] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   53.752511] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   53.752578] mmc1: sdhci: ============================================
+[   53.752678] mmc0: Timeout waiting for hardware cmd interrupt.
+[   53.752739] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   53.752844] mmc0: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   53.752935] mmc0: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   53.753010] mmc0: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   53.753129] mmc0: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   53.753213] mmc0: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   53.753292] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[   53.753371] mmc0: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   53.753435] mmc0: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   53.753500] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   53.753565] mmc0: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   53.753631] mmc0: sdhci: Cmd:       0x00000000 | Max curr: 0x00ffffff
+[   53.753706] mmc0: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   53.753772] mmc0: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   53.753838] mmc0: sdhci: Host ctl2: 0x00000000
+[   53.753885] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   53.753948] mmc0: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   53.754023] mmc0: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   53.754082] mmc0: sdhci-esdhc-imx: data debug status:  0x0000
+[   53.754147] mmc0: sdhci-esdhc-imx: trans debug status:  0x0000
+[   53.754228] mmc0: sdhci-esdhc-imx: dma debug status:  0x0000
+[   53.754299] mmc0: sdhci-esdhc-imx: adma debug status:  0x0000
+[   53.754361] mmc0: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   53.754429] mmc0: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   53.754504] mmc0: sdhci: ============================================
+Vocabulary loaded!
+
+Initialization of Atlas from scratch 
+Creation of new map with id: 0
+Creation of new map with last KF id: 0
+Seq. Name: 
+There are 1 cameras in the atlas
+Camera 0 is pinhole
+First KF:0; Map init KF:0
+New Map created with 508 points
+[   63.990823] mmc1: Timeout waiting for hardware cmd interrupt.
+[   63.990970] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   63.991063] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   63.991141] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   63.991214] mmc1: sdhci: Argument:  0x000001aa | Trn mode: 0x00000000
+[   63.991285] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   63.991352] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   63.991418] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   63.991485] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   63.991552] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   63.991620] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   63.991687] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   63.991760] mmc1: sdhci: Cmd:       0x0000081a | Max curr: 0x00ffffff
+[   63.991827] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   63.991895] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   63.991964] mmc1: sdhci: Host ctl2: 0x00000000
+[   63.992013] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   63.992081] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   63.992162] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   63.992225] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[   63.992285] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[   63.992347] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[   63.992408] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[   63.992468] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   63.992537] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   63.992602] mmc1: sdhci: ============================================
+[   63.992704] mmc0: Timeout waiting for hardware cmd interrupt.
+[   63.992781] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   63.992886] mmc0: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   63.993035] mmc0: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   63.993118] mmc0: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   63.993191] mmc0: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   63.993271] mmc0: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   63.993342] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[   63.993409] mmc0: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   63.993476] mmc0: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   63.993551] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   63.993619] mmc0: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   63.993698] mmc0: sdhci: Cmd:       0x00000102 | Max curr: 0x00ffffff
+[   63.993788] mmc0: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   63.993862] mmc0: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   63.993932] mmc0: sdhci: Host ctl2: 0x00000000
+[   63.993995] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   63.994063] mmc0: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   63.994144] mmc0: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   63.994208] mmc0: sdhci-esdhc-imx: data debug status:  0x0000
+[   63.994270] mmc0: sdhci-esdhc-imx: trans debug status:  0x0000
+[   63.994333] mmc0: sdhci-esdhc-imx: dma debug status:  0x0000
+[   63.994394] mmc0: sdhci-esdhc-imx: adma debug status:  0x0000
+[   63.994456] mmc0: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   63.994516] mmc0: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   63.994580] mmc0: sdhci: ============================================
+[   74.230860] mmc0: Timeout waiting for hardware cmd interrupt.
+[   74.230890] mmc1: Timeout waiting for hardware cmd interrupt.
+[   74.231163] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   74.231189] mmc0: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   74.231401] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   74.231594] mmc0: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   74.231804] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   74.231990] mmc0: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   74.232219] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   74.232387] mmc0: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   74.232601] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   74.232722] mmc0: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   74.232931] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   74.233096] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x000004e3
+[   74.233279] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   74.233417] mmc0: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   74.233666] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   74.233796] mmc0: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   74.234010] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   74.234141] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   74.234380] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   74.234512] mmc0: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   74.234748] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   74.234914] mmc0: sdhci: Cmd:       0x00000000 | Max curr: 0x00ffffff
+[   74.235156] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   74.235308] mmc0: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   74.235532] mmc1: sdhci: Cmd:       0x00000502 | Max curr: 0x00ffffff
+[   74.235677] mmc0: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   74.235920] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   74.236057] mmc0: sdhci: Host ctl2: 0x00000000
+[   74.236497] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   74.236618] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   74.237028] mmc0: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   74.237029] mmc1: sdhci: Host ctl2: 0x00000000
+[   74.237227] mmc0: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   74.237360] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   74.237501] mmc0: sdhci-esdhc-imx: data debug status:  0x0000
+[   74.237647] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   74.237787] mmc0: sdhci-esdhc-imx: trans debug status:  0x0000
+[   74.237960] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   74.238088] mmc0: sdhci-esdhc-imx: dma debug status:  0x0000
+[   74.238244] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[   74.238371] mmc0: sdhci-esdhc-imx: adma debug status:  0x0000
+[   74.238503] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[   74.238635] mmc0: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   74.238790] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[   74.238917] mmc0: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   74.239046] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[   74.239187] mmc0: sdhci: ============================================
+[   74.239296] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   74.239630] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   74.239811] mmc1: sdhci: ============================================
+[   74.743756] cfg80211: failed to load regulatory.db
+[   84.470827] mmc0: Timeout waiting for hardware cmd interrupt.
+[   84.470868] mmc1: Timeout waiting for hardware cmd interrupt.
+[   84.471028] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   84.471044] mmc0: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   84.471242] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   84.471401] mmc0: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   84.471615] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   84.471770] mmc0: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   84.471996] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   84.472134] mmc0: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   84.472358] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   84.472516] mmc0: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   84.472726] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   84.472904] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x000004e3
+[   84.473047] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   84.473204] mmc0: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   84.473359] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   84.473495] mmc0: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   84.473632] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   84.473809] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   84.473954] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   84.474102] mmc0: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   84.474259] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   84.474385] mmc0: sdhci: Cmd:       0x00000102 | Max curr: 0x00ffffff
+[   84.474537] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   84.474699] mmc0: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   84.474873] mmc1: sdhci: Cmd:       0x00000502 | Max curr: 0x00ffffff
+[   84.475027] mmc0: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   84.475164] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   84.475336] mmc0: sdhci: Host ctl2: 0x00000000
+[   84.475473] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   84.475635] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   84.475749] mmc1: sdhci: Host ctl2: 0x00000000
+[   84.475912] mmc0: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   84.476058] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   84.476164] mmc0: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   84.476344] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   84.476515] mmc0: sdhci-esdhc-imx: data debug status:  0x0000
+[   84.476660] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   84.476837] mmc0: sdhci-esdhc-imx: trans debug status:  0x0000
+[   84.476970] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[   84.477100] mmc0: sdhci-esdhc-imx: dma debug status:  0x0000
+[   84.477229] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[   84.477329] mmc0: sdhci-esdhc-imx: adma debug status:  0x0000
+[   84.477470] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[   84.477589] mmc0: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   84.477714] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[   84.477808] mmc0: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   84.477921] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   84.478012] mmc0: sdhci: ============================================
+[   84.478100] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   84.478483] mmc1: sdhci: ============================================
+[   94.710867] mmc1: Timeout waiting for hardware cmd interrupt.
+[   94.711044] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   94.711153] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   94.711253] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   94.711347] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   94.711443] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   94.711539] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   94.711631] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[   94.711729] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   94.711820] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   94.711924] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   94.712016] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   94.712105] mmc1: sdhci: Cmd:       0x00000502 | Max curr: 0x00ffffff
+[   94.712196] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   94.712284] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   94.712374] mmc1: sdhci: Host ctl2: 0x00000000
+[   94.712438] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   94.712525] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   94.712689] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   94.712778] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[   94.712860] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[   94.712943] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[   94.713023] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[   94.713103] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   94.713183] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   94.713269] mmc1: sdhci: ============================================
+[   94.713393] mmc0: Timeout waiting for hardware cmd interrupt.
+[   94.713507] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
+[   94.713625] mmc0: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[   94.713719] mmc0: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[   94.713806] mmc0: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[   94.713893] mmc0: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[   94.713984] mmc0: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[   94.714076] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x000008e3
+[   94.714169] mmc0: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[   94.714260] mmc0: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[   94.714351] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[   94.714440] mmc0: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[   94.714531] mmc0: sdhci: Cmd:       0x00000000 | Max curr: 0x00ffffff
+[   94.714621] mmc0: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[   94.714708] mmc0: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[   94.714834] mmc0: sdhci: Host ctl2: 0x00000000
+[   94.714908] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[   94.714996] mmc0: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[   94.715097] mmc0: sdhci-esdhc-imx: cmd debug status:  0x0000
+[   94.715177] mmc0: sdhci-esdhc-imx: data debug status:  0x0000
+[   94.715255] mmc0: sdhci-esdhc-imx: trans debug status:  0x0000
+[   94.715334] mmc0: sdhci-esdhc-imx: dma debug status:  0x0000
+[   94.715412] mmc0: sdhci-esdhc-imx: adma debug status:  0x0000
+[   94.715493] mmc0: sdhci-esdhc-imx: fifo debug status:  0x0000
+[   94.715586] mmc0: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[   94.715678] mmc0: sdhci: ============================================
+[  104.950841] mmc0: Timeout waiting for hardware cmd interrupt.
+[  104.950843] mmc1: Timeout waiting for hardware cmd interrupt.
+[  104.951101] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  104.951116] mmc0: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  104.951349] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  104.951560] mmc0: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  104.951786] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  104.951984] mmc0: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  104.952186] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  104.952194] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  104.952395] mmc0: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  104.952593] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  104.952785] mmc0: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  104.953025] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  104.953230] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x000008e3
+[  104.953454] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[  104.953638] mmc0: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  104.953828] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  104.954052] mmc0: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  104.954260] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  104.954421] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  104.954645] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  104.954846] mmc0: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  104.955023] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  104.955225] mmc0: sdhci: Cmd:       0x00000102 | Max curr: 0x00ffffff
+[  104.955243] mmc0: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  104.955466] mmc1: sdhci: Cmd:       0x00000502 | Max curr: 0x00ffffff
+[  104.955697] mmc0: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  104.955902] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  104.956100] mmc0: sdhci: Host ctl2: 0x00000000
+[  104.956282] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  104.956515] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  104.956716] mmc1: sdhci: Host ctl2: 0x00000000
+[  104.956804] mmc0: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  104.956867] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  104.956988] mmc0: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  104.957073] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  104.957137] mmc0: sdhci-esdhc-imx: data debug status:  0x0000
+[  104.957243] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  104.957339] mmc0: sdhci-esdhc-imx: trans debug status:  0x0000
+[  104.957425] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  104.957545] mmc0: sdhci-esdhc-imx: dma debug status:  0x0000
+[  104.957730] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  104.957903] mmc0: sdhci-esdhc-imx: adma debug status:  0x0000
+[  104.958116] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  104.958315] mmc0: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  104.958473] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  104.958648] mmc0: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  104.958831] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  104.958987] mmc0: sdhci: ============================================
+[  104.959195] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  104.960279] mmc1: sdhci: ============================================
+=== ORB-SLAM3 TRACK STATS (n=250 frames) ===
+track_mean_ms=207.916
+track_median_ms=178.494
+track_min_ms=139.175
+track_max_ms=835.074
+track_p95_ms=519.211
+track_total_s=51.979
+implied_max_fps_median=5.60241
+implied_max_fps_mean=4.80963
+Shutdown
+
+Saving trajectory to CameraTrajectory.txt ...
+There are 1 maps in the atlas
+  Map 0 has 24 KFs
+
+End of saving trajectory to CameraTrajectory.txt ...
+
+Saving keyframe trajectory to KeyFrameTrajectory.txt ...
+=== mono_euroc exit=0  wall=95.7s ===
+=== DONE — powering off ===
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+bash-5.2# [  104.961023] mmc0: Failed to initialize a non-removable card
+[  115.190936] mmc1: Timeout waiting for hardware cmd interrupt.
+[  115.191197] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  115.191331] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  115.191431] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  115.191500] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  115.191569] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  115.191638] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  115.191706] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[  115.191776] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  115.191843] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  115.191910] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  115.191978] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  115.192044] mmc1: sdhci: Cmd:       0x0000371a | Max curr: 0x00ffffff
+[  115.192111] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  115.192178] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  115.192246] mmc1: sdhci: Host ctl2: 0x00000000
+[  115.192295] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  115.192363] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  115.192456] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  115.192578] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  115.192655] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  115.192735] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  115.192809] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  115.192887] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  115.192968] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  115.193054] mmc1: sdhci: ============================================
+[  125.430906] mmc1: Timeout waiting for hardware cmd interrupt.
+[  125.431083] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  125.431211] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  125.431315] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  125.431407] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  125.431498] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  125.431589] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  125.431678] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[  125.431768] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  125.431859] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  125.431953] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  125.432053] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  125.432143] mmc1: sdhci: Cmd:       0x0000371a | Max curr: 0x00ffffff
+[  125.432235] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  125.432323] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  125.432415] mmc1: sdhci: Host ctl2: 0x00000000
+[  125.432481] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  125.432571] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  125.432679] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  125.432767] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  125.432847] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  125.432927] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  125.433005] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  125.433084] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  125.433167] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  125.433259] mmc1: sdhci: ============================================
+[  135.671014] mmc1: Timeout waiting for hardware cmd interrupt.
+[  135.671298] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  135.671494] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  135.671693] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  135.671884] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  135.672348] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  135.672468] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  135.672563] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[  135.672658] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  135.672749] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  135.672840] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  135.672929] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  135.673026] mmc1: sdhci: Cmd:       0x0000371a | Max curr: 0x00ffffff
+[  135.673119] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  135.673208] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  135.673297] mmc1: sdhci: Host ctl2: 0x00000000
+[  135.673360] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  135.673451] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  135.673556] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  135.673636] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  135.673714] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  135.673808] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  135.673885] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  135.673965] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  135.674045] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  135.674136] mmc1: sdhci: ============================================
+[  145.910988] mmc1: Timeout waiting for hardware cmd interrupt.
+[  145.911114] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  145.911228] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  145.911327] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  145.911417] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  145.911509] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  145.911600] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  145.911689] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[  145.911778] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  145.911881] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  145.911971] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  145.912061] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  145.912150] mmc1: sdhci: Cmd:       0x0000371a | Max curr: 0x00ffffff
+[  145.912241] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  145.912330] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  145.912420] mmc1: sdhci: Host ctl2: 0x00000000
+[  145.912484] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  145.912579] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  145.912692] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  145.912772] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  145.912852] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  145.912935] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  145.913016] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  145.913092] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  145.913159] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  145.913247] mmc1: sdhci: ============================================
+[  156.150995] mmc1: Timeout waiting for hardware cmd interrupt.
+[  156.151140] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  156.151237] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  156.151329] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  156.151436] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  156.151529] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  156.151598] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  156.151666] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x000002e3
+[  156.151754] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  156.151837] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  156.151906] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  156.151973] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  156.152040] mmc1: sdhci: Cmd:       0x00000102 | Max curr: 0x00ffffff
+[  156.152107] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  156.152193] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  156.152260] mmc1: sdhci: Host ctl2: 0x00000000
+[  156.152310] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  156.152375] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  156.152457] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  156.152516] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  156.152579] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  156.152640] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  156.152698] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  156.152763] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  156.152823] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  156.152901] mmc1: sdhci: ============================================
+[  166.390939] mmc1: Timeout waiting for hardware cmd interrupt.
+[  166.391187] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  166.391383] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  166.391598] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  166.391825] mmc1: sdhci: Argument:  0x00000c00 | Trn mode: 0x00000000
+[  166.392048] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  166.392266] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  166.392491] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[  166.392712] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  166.392934] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  166.393159] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  166.393380] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  166.393599] mmc1: sdhci: Cmd:       0x0000341a | Max curr: 0x00ffffff
+[  166.393817] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  166.394048] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  166.394269] mmc1: sdhci: Host ctl2: 0x00000000
+[  166.394424] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  166.394639] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  166.394895] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  166.395086] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  166.395284] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  166.395478] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  166.395675] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  166.395872] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  166.396072] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  166.396286] mmc1: sdhci: ============================================
+[  176.630949] mmc1: Timeout waiting for hardware cmd interrupt.
+[  176.631182] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  176.631342] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  176.631461] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  176.631533] mmc1: sdhci: Argument:  0x80000c08 | Trn mode: 0x00000000
+[  176.631603] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  176.631671] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  176.631738] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[  176.631806] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  176.631873] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  176.631948] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  176.632076] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  176.632162] mmc1: sdhci: Cmd:       0x0000341a | Max curr: 0x00ffffff
+[  176.632234] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  176.632304] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  176.632374] mmc1: sdhci: Host ctl2: 0x00000000
+[  176.632432] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  176.632503] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  176.632587] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  176.632650] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  176.632718] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  176.632782] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  176.632842] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  176.632903] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  176.632963] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  176.633028] mmc1: sdhci: ============================================
+[  186.870834] mmc1: Timeout waiting for hardware cmd interrupt.
+[  186.870975] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  186.871070] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  186.871165] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  186.871255] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  186.871343] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  186.871430] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  186.871515] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[  186.871599] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  186.871684] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  186.871770] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  186.871855] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  186.871942] mmc1: sdhci: Cmd:       0x00000000 | Max curr: 0x00ffffff
+[  186.872026] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  186.872111] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  186.872196] mmc1: sdhci: Host ctl2: 0x00000000
+[  186.872275] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  186.872362] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  186.872462] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  186.872540] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  186.872616] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  186.872692] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  186.872768] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  186.872844] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  186.872922] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  186.873011] mmc1: sdhci: ============================================
+[  197.110901] mmc1: Timeout waiting for hardware cmd interrupt.
+[  197.111077] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  197.111189] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  197.111299] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  197.111419] mmc1: sdhci: Argument:  0x000001aa | Trn mode: 0x00000000
+[  197.111515] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  197.111601] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  197.111688] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[  197.111773] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  197.111874] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  197.111964] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  197.112052] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  197.112143] mmc1: sdhci: Cmd:       0x0000081a | Max curr: 0x00ffffff
+[  197.112227] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  197.112317] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  197.112401] mmc1: sdhci: Host ctl2: 0x00000000
+[  197.112461] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  197.112525] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  197.112618] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  197.112679] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  197.112736] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  197.112794] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  197.112851] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  197.112906] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  197.112964] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  197.113026] mmc1: sdhci: ============================================
+[  207.350966] mmc1: Timeout waiting for hardware cmd interrupt.
+[  207.351215] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  207.351424] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  207.351649] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  207.351871] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  207.352091] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  207.352211] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  207.352304] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[  207.352399] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  207.352488] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  207.352581] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  207.352672] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  207.352763] mmc1: sdhci: Cmd:       0x00000502 | Max curr: 0x00ffffff
+[  207.352862] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  207.352960] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  207.353053] mmc1: sdhci: Host ctl2: 0x00000000
+[  207.353120] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  207.353218] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  207.353326] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  207.353410] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  207.353491] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  207.353580] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  207.353663] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  207.353747] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  207.353831] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  207.353923] mmc1: sdhci: ============================================
+[  217.590966] mmc1: Timeout waiting for hardware cmd interrupt.
+[  217.591238] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  217.591438] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  217.591630] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  217.591838] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  217.591932] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  217.592002] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  217.592070] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[  217.592138] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  217.592206] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  217.592274] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  217.592343] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  217.592416] mmc1: sdhci: Cmd:       0x00000502 | Max curr: 0x00ffffff
+[  217.592484] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  217.592551] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  217.592619] mmc1: sdhci: Host ctl2: 0x00000000
+[  217.592668] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  217.592735] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  217.592835] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  217.592915] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  217.592994] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  217.593076] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  217.593149] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  217.593209] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  217.593269] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  217.593335] mmc1: sdhci: ============================================
+[  222.199452] thermal thermal_zone1: Unable to get temperature, disabling!
+[  222.199785] thermal thermal_zone0: Unable to get temperature, disabling!
+[  222.200301] thermal thermal_zone1: Disabled thermal zone with critical trip point
+[  222.200321] thermal thermal_zone0: Disabled thermal zone with critical trip point
+[  227.830965] mmc1: Timeout waiting for hardware cmd interrupt.
+[  227.831217] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  227.831665] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  227.831901] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  227.832205] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  227.832450] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  227.832686] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  227.832912] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[  227.833127] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  227.833341] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  227.833570] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  227.833792] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  227.834009] mmc1: sdhci: Cmd:       0x00000502 | Max curr: 0x00ffffff
+[  227.834237] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  227.834456] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  227.834679] mmc1: sdhci: Host ctl2: 0x00000000
+[  227.834847] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  227.835073] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  227.835328] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  227.835522] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  227.835736] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  227.835933] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  227.836128] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  227.836324] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  227.836531] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  227.836745] mmc1: sdhci: ============================================
+[  238.070976] mmc1: Timeout waiting for hardware cmd interrupt.
+[  238.071109] mmc1: sdhci: ============ SDHCI REGISTER DUMP ===========
+[  238.071252] mmc1: sdhci: Sys addr:  0x00000000 | Version:  0x00000002
+[  238.071353] mmc1: sdhci: Blk size:  0x00000000 | Blk cnt:  0x00000000
+[  238.071457] mmc1: sdhci: Argument:  0x00000000 | Trn mode: 0x00000000
+[  238.071576] mmc1: sdhci: Present:   0x011a0008 | Host ctl: 0x00000000
+[  238.071669] mmc1: sdhci: Power:     0x00000000 | Blk gap:  0x00000000
+[  238.071758] mmc1: sdhci: Wake-up:   0x00000000 | Clock:    0x00000493
+[  238.071844] mmc1: sdhci: Timeout:   0x00000000 | Int stat: 0x00000000
+[  238.071931] mmc1: sdhci: Int enab:  0x00ff0003 | Sig enab: 0x00ff0003
+[  238.072020] mmc1: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
+[  238.072109] mmc1: sdhci: Caps:      0x05680000 | Caps_1:   0x000034b4
+[  238.072198] mmc1: sdhci: Cmd:       0x00000502 | Max curr: 0x00ffffff
+[  238.072301] mmc1: sdhci: Resp[0]:   0x00000000 | Resp[1]:  0x00000000
+[  238.072392] mmc1: sdhci: Resp[2]:   0x00000000 | Resp[3]:  0x00000000
+[  238.072482] mmc1: sdhci: Host ctl2: 0x00000000
+[  238.072545] mmc1: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0x00000000
+[  238.072632] mmc1: sdhci-esdhc-imx: ========= ESDHC IMX DEBUG STATUS DUMP =========
+[  238.072737] mmc1: sdhci-esdhc-imx: cmd debug status:  0x0000
+[  238.072815] mmc1: sdhci-esdhc-imx: data debug status:  0x0000
+[  238.072890] mmc1: sdhci-esdhc-imx: trans debug status:  0x0000
+[  238.072984] mmc1: sdhci-esdhc-imx: dma debug status:  0x0000
+[  238.073066] mmc1: sdhci-esdhc-imx: adma debug status:  0x0000
+[  238.073125] mmc1: sdhci-esdhc-imx: fifo debug status:  0x0000
+[  238.073185] mmc1: sdhci-esdhc-imx: async fifo debug status:  0x0000
+[  238.073249] mmc1: sdhci: ============================================

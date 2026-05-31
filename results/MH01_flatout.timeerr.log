@@ -1,0 +1,37 @@
+Camera1.k3 optional parameter does not exist...
+Viewer.imageViewScale optional parameter does not exist...
+System.LoadAtlasFromFile optional parameter does not exist...
+System.SaveAtlasToFile optional parameter does not exist...
+System.thFarPoints optional parameter does not exist...
+=== ORB-SLAM3 TRACK STATS (n=3682 frames) ===
+track_mean_ms=6.89837
+track_median_ms=6.52074
+track_min_ms=4.5112
+track_max_ms=34.3778
+track_p95_ms=9.19168
+track_total_s=25.3998
+implied_max_fps_median=153.357
+implied_max_fps_mean=144.962
+	Command being timed: "/home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/mono_euroc_flatout /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Vocabulary/ORBvoc.txt /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/EuRoC.yaml /home/kyle/Documents/GitHub/orbslam3-imx95/datasets/MH_01 /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/EuRoC_TimeStamps/MH01.txt"
+	User time (seconds): 130.17
+	System time (seconds): 10.76
+	Percent of CPU this job got: 433%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:32.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 729516
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 244995
+	Voluntary context switches: 837728
+	Involuntary context switches: 843981
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 904
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

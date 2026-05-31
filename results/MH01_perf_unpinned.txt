@@ -1,0 +1,53 @@
+# started on Sat May 30 18:51:15 2026
+
+
+ Performance counter stats for '/home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/mono_euroc_flatout /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Vocabulary/ORBvoc.txt /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/EuRoC.yaml /home/kyle/Documents/GitHub/orbslam3-imx95/datasets/MH_01 /home/kyle/Documents/GitHub/orbslam3-imx95/orbslam3/ORB_SLAM3/Examples/Monocular/EuRoC_TimeStamps/MH01.txt':
+
+        148,556.70 msec task-clock                       #    4.481 CPUs utilized             
+         1,538,254      context-switches                 #   10.355 K/sec                     
+           206,976      cpu-migrations                   #    1.393 K/sec                     
+           256,345      page-faults                      #    1.726 K/sec                     
+   552,545,934,359      cpu_atom/cycles/                 #    3.719 GHz                         (14.38%)
+   734,526,512,490      cpu_core/cycles/                 #    4.944 GHz                         (21.98%)
+   354,475,730,198      cpu_atom/instructions/           #    0.64  insn per cycle              (16.80%)
+ 1,066,432,137,793      cpu_core/instructions/           #    1.45  insn per cycle              (26.39%)
+    52,742,214,971      cpu_atom/branches/               #  355.031 M/sec                       (16.87%)
+   146,608,374,811      cpu_core/branches/               #  986.885 M/sec                       (30.84%)
+       615,987,849      cpu_atom/branch-misses/          #    1.17% of all branches             (16.82%)
+     3,302,073,784      cpu_core/branch-misses/          #    2.25% of all branches             (35.24%)
+             TopdownL1 (cpu_core)                 #     44.5 %  tma_backend_bound      
+                                                  #      9.8 %  tma_bad_speculation    
+                                                  #     16.1 %  tma_frontend_bound     
+                                                  #     29.6 %  tma_retiring             (39.61%)
+             TopdownL1 (cpu_atom)                 #      3.3 %  tma_bad_speculation    
+                                                  #     22.3 %  tma_retiring             (16.78%)
+                                                  #     46.8 %  tma_backend_bound      
+                                                  #     46.8 %  tma_backend_bound_aux  
+                                                  #     27.6 %  tma_frontend_bound       (16.86%)
+   231,795,679,730      L1-dcache-loads                  #    1.560 G/sec                       (14.35%)
+   309,600,172,037      L1-dcache-loads                  #    2.084 G/sec                       (44.04%)
+   <not supported>      L1-dcache-load-misses                                                 
+     5,621,270,418      L1-dcache-load-misses            #    1.82% of all L1-dcache accesses   (44.05%)
+   117,119,409,791      LLC-loads                        #  788.382 M/sec                       (14.36%)
+     1,205,024,609      LLC-loads                        #    8.112 M/sec                       (44.04%)
+   109,833,369,090      LLC-load-misses                  #   93.78% of all LL-cache accesses    (14.39%)
+       294,403,819      LLC-load-misses                  #   24.43% of all LL-cache accesses    (44.04%)
+   232,338,733,382      L1-icache-loads                  #    1.564 G/sec                       (14.29%)
+   <not supported>      L1-icache-loads                                                       
+   181,092,116,269      L1-icache-load-misses            #   77.94% of all L1-icache accesses   (14.33%)
+     1,399,643,046      L1-icache-load-misses                                                   (17.59%)
+   334,891,724,917      dTLB-loads                       #    2.254 G/sec                       (14.42%)
+   311,366,799,549      dTLB-loads                       #    2.096 G/sec                       (17.57%)
+   104,170,406,519      dTLB-load-misses                 #   31.11% of all dTLB cache accesses  (14.38%)
+       207,771,693      dTLB-load-misses                 #    0.07% of all dTLB cache accesses  (17.59%)
+   <not supported>      iTLB-loads                                                            
+   <not supported>      iTLB-loads                                                            
+   160,817,309,177      iTLB-load-misses                                                        (14.35%)
+         9,265,945      iTLB-load-misses                                                        (17.59%)
+
+      33.152164442 seconds time elapsed
+
+     132.692144000 seconds user
+      16.342739000 seconds sys
+
+
