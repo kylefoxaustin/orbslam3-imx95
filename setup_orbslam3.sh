@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 # Clone upstream ORB-SLAM3 at the pinned commit and apply the appropriate patch.
 # Usage: ./setup_orbslam3.sh [x86|imx95]   (default: x86)
 #   x86   -> instrumentation only (per-frame stats + throttle-free flatout variant)

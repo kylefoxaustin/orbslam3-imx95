@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 # ORB-SLAM3 i.MX95 port (Step 2) — assemble an initramfs that runs ORB-SLAM3 headless in qemu-imx95.
 # Base = the booting glibc trim rootfs; add the cross-built binary + libs + dep-closure
 # (pulled from the full Yocto rootfs) + ORB vocab + EuRoC.yaml + timestamps + frame subset.

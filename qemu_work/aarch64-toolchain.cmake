@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 # ORB-SLAM3 i.MX95 port (Step 2) — aarch64 cross toolchain against the Yocto imx95 sysroot
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR aarch64)

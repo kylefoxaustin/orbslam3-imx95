@@ -1,3 +1,4 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 # ORB-SLAM3 — build, characterization, and i.MX 95 (qemu-imx95) port log
 
 ## Environment

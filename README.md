@@ -1,5 +1,7 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 # ORB-SLAM3 → NXP i.MX 95 (qemu-imx95)
 
+**Maintainer:** @kylefoxaustin  ·  **License:** GPL-3.0-or-later (see LICENSE; patches/ retain their upstream GPLv3 headers)
 An ORB-SLAM3 build characterized on an x86 baseline and then **cross-compiled and run end-to-end on an
 emulated NXP i.MX 95 (Cortex-A55)** under [qemu-imx95](https://github.com/kylefoxaustin/qemu-imx95).
 

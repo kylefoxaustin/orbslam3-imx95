@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 # ORB-SLAM3 i.MX95 port — ORB-SLAM3 monocular EuRoC run harness
 # Captures: wall time, Max RSS, overall CPU%, per-thread CPU (top -H), track-time stats (binary stderr),
 #           and optionally perf stat (IPC, cache-misses, branch-misses) for the flat-out run.

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 # ORB-SLAM3 i.MX95 port (Step 2) — non-modifying launch wrapper for qemu-imx95.
 # Uses the EXISTING built qemu binary (v1.x) read-only. Does not write into the repo.
 # Replicates tests/swap-boot/run.sh's invocation with our own INITRD + RAM override.

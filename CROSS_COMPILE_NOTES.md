@@ -1,3 +1,4 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 # Cross-compiling guest software for qemu-imx95 (Yocto trim rootfs)
 
 Practical notes for building a non-trivial C++ application on an x86 host and running it inside the
